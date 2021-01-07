@@ -40,7 +40,7 @@ class Book
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $coverLink;
+    private $imageLink;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -69,6 +69,16 @@ class Book
      * @ORM\Column(type="boolean")
      */
     private $isVisible;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageAlt;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -118,14 +128,14 @@ class Book
         return $this;
     }
 
-    public function getCoverLink(): ?string
+    public function getImageLink(): ?string
     {
-        return $this->coverLink;
+        return $this->imageLink;
     }
 
-    public function setCoverLink(string $coverLink): self
+    public function setImageLink(string $imageLink): self
     {
-        $this->coverLink = $coverLink;
+        $this->imageLink = $imageLink;
 
         return $this;
     }
@@ -200,6 +210,30 @@ class Book
     public function setIsVisible(bool $isVisible): self
     {
         $this->isVisible = $isVisible;
+
+        return $this;
+    }
+
+    public function getImageAlt(): ?string
+    {
+        return $this->imageAlt;
+    }
+
+    public function setImageAlt(string $imageAlt): self
+    {
+        $this->imageAlt = $imageAlt;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

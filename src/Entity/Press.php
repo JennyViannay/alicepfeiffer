@@ -65,6 +65,11 @@ class Press
      */
     private $isVisible;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageAlt;
+
     public function __construct()
     {
         $this->updatedAt = new \DateTime('now');
@@ -186,4 +191,17 @@ class Press
 
         return $this;
     }
+
+    public function getImageAlt(): ?string
+    {
+        return $this->imageAlt;
+    }
+
+    public function setImageAlt(string $imageAlt): self
+    {
+        $this->imageAlt = $imageAlt;
+
+        return $this;
+    }
+
 }

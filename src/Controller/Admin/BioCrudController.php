@@ -28,12 +28,19 @@ class BioCrudController extends AbstractCrudController
 
         if ($pageName == Crud::PAGE_NEW || $pageName == Crud::PAGE_EDIT) {
             $imageFile = TextField::new('imageFile')->setFormType(VichImageType::class)->setLabel('Cover File')->onlyOnForms();
+            $imageAlt = TextField::new('imageAlt', 'Image description improve SEO');
             array_push($fields, $imageFile);
+            array_push($fields, $imageAlt);
         } 
 
         if ($pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL) {
             $image = ImageField::new('image', 'Image File')->setBasePath('/uploads');
             array_push($fields, $image);
+        }
+
+        if ($pageName == Crud::PAGE_DETAIL) {
+            $imageAlt = TextField::new('imageAlt', 'Image description');
+            array_push($fields, $imageAlt);
         } 
 
         return $fields;
@@ -45,13 +52,9 @@ class BioCrudController extends AbstractCrudController
         $actions
         ->remove(Crud::PAGE_INDEX, 'delete')
         ->remove(Crud::PAGE_INDEX, 'new')
-        ->add(Crud::PAGE_INDEX, 'detail')
         ->remove(Crud::PAGE_DETAIL, 'delete')
         ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
             return $action->setIcon('fa fa-pen')->setLabel(false);
-        })
-        ->update(Crud::PAGE_INDEX, Action::DETAIL, function (Action $action) {
-            return $action->setIcon('fa fa-eye')->setLabel(false);
         });
     }
 }

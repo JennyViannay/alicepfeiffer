@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -25,19 +26,27 @@ class PressCrudController extends AbstractCrudController
         $fields = [
             IdField::new('id')->onlyOnIndex(),
             TextField::new('magazine'),
-            TextField::new('link', 'Article Link'),
+            TextField::new('link', 'Magazine Link'),
             TextField::new('imageLink'),
-            AssociationField::new('tags')
+            AssociationField::new('tags'),
+            BooleanField::new('isVisible')->onlyOnIndex()
         ];
 
         if ($pageName == Crud::PAGE_NEW || $pageName == Crud::PAGE_EDIT) {
             $imageFile = TextField::new('imageFile')->setFormType(VichImageType::class)->onlyOnForms();
+            $imageAlt = TextField::new('imageAlt', 'Image description improve SEO');
             array_push($fields, $imageFile);
+            array_push($fields, $imageAlt);
         } 
 
         if ($pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL) {
             $image = ImageField::new('image', 'Image File')->setBasePath('/uploads');
             array_push($fields, $image);
+        } 
+
+        if ($pageName == Crud::PAGE_DETAIL) {
+            $imageAlt = TextField::new('imageAlt', 'Image description');
+            array_push($fields, $imageAlt);
         } 
 
         return $fields;

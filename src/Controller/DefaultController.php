@@ -8,6 +8,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\BioRepository;
 use App\Repository\BookRepository;
 use App\Repository\PressRepository;
+use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,17 +20,20 @@ class DefaultController extends AbstractController
     private $articleRepository;
     private $pressRepository;
     private $bookRepository;
+    private $mailerService;
 
     public function __construct(
         BioRepository $bioRepository,
         ArticleRepository $articleRepository,
         PressRepository $pressRepository,
-        BookRepository $bookRepository
+        BookRepository $bookRepository,
+        MailerService $mailerService
     ) {
         $this->bioRepository = $bioRepository;
         $this->articleRepository = $articleRepository;
         $this->pressRepository = $pressRepository;
         $this->bookRepository = $bookRepository;
+        $this->mailerService = $mailerService;
     }
     /**
      * @Route("/", name="home", methods={"GET"})
@@ -57,8 +61,8 @@ class DefaultController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contact);
             $entityManager->flush();
-            // TODO:success after contact post
-            // TODO:send mail to Alice after contact post
+            $this->mailerService->sendEmailAfterContact($contact);
+            $this->addFlash('success', 'Thank you, your message has been sent!');
             return $this->redirectToRoute('home');
         } 
         
