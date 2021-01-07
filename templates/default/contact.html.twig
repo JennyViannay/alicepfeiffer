@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}- Contact{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Contact! ✅</h1>
+    <form method="POST">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" class="form-control" id="subject" name="subject">
+        </div>
+        <div class="form-group">
+            <label class="form-check-label" for="exampleCheck1">Message</label>
+            <textarea name="content" id="content" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container-fluid mt-5">
+    <main role="main" class="inner cover text-center">
+        <h1 class="cover-heading">Alice Pfeiffer</h1>
+        <p class="lead">{{bio|raw}}</p>
+        {% if bio.imageLink %}
+        <img src="{{bio.imageLink}}" alt="Alice Pfeiffer portrait" class="img-fluid">
+        {% else %}
+        <img src="{{bio.imageLink}}" alt="Alice Pfeiffer portrait" class="img-fluid">
+        {% endif %}
+        <p class="lead my-4">
+            <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
+        </p>
+    </main>
+</div>
+{% endblock %}
