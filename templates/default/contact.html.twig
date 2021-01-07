@@ -4,21 +4,47 @@
 
 {% block body %}
 <div class="container">
-    <h1>Contact! ✅</h1>
-    <form method="POST">
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email">
-        </div>
-        <div class="form-group">
-            <label for="subject">Subject</label>
-            <input type="text" class="form-control" id="subject" name="subject">
-        </div>
-        <div class="form-group">
-            <label class="form-check-label" for="exampleCheck1">Message</label>
-            <textarea name="content" id="content" class="form-control"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    <h1 class="my-4 text-center">Contact Alice</h1>
+    <div id="flash_message" class="alert alert-danger d-none"></div>
+    {{ form_start(form, {'attr': {'id': 'form-contact'}}) }}
+    <div class="my-2">
+        <label for="email" class="form-label">Email *</label>
+        {{ form_widget(form.email) }}
+    </div>
+    <div class="my-2">
+        <label for="subject" class="form-label">Subject *</label>
+        {{ form_widget(form.subject) }}
+    </div>
+    <div class="my-3">
+        <label for="message" class="form-label">Message *</label>
+        {{ form_widget(form.message) }}
+    </div>
+    <input type="text" name="token" id="input-token" value="" class="d-none">
+    <div class="text-center my-4">
+        <button class="btn btn-primary" type="submit" id="submit-contact"
+            data-sitekey="6LfJMCQaAAAAAJfXuLTH8XpIyUbYJiFE52pMX4hO">{{ button_label|default('Send') }}</button>
+    </div>
+    {{ form_end(form) }}
 </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LfJMCQaAAAAAJfXuLTH8XpIyUbYJiFE52pMX4hO"></script>
+<script>
+    document.getElementById('form-contact').addEventListener('submit', e => {
+        e.preventDefault()
+        grecaptcha.ready(() => {
+            grecaptcha.execute('6LfJMCQaAAAAAJfXuLTH8XpIyUbYJiFE52pMX4hO', { action: 'submit' }).then((token) => {
+                axios.post('https://localhost:8000/captchaverify', token)
+                .then(response => {
+                    if (response.data === true) {
+                        document.getElementById('input-token').value = token
+                        document.getElementById('form-contact').submit()
+                    }
+                })
+            });
+        });
+    })
+</script>
 {% endblock %}

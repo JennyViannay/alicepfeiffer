@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BookRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -58,9 +60,21 @@ class Book
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="books")
+     */
+    private $tags;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVisible;
+
     public function __construct()
     {
         $this->updatedAt = new \DateTime('now');
+        $this->tags = new ArrayCollection();
+        $this->isVisible = false;
     }
 
     public function getId(): ?int
@@ -151,6 +165,42 @@ class Book
     {
         $this->updatedAt = new \DateTime;
         
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getIsVisible(): ?bool
+    {
+        return $this->isVisible;
+    }
+
+    public function setIsVisible(bool $isVisible): self
+    {
+        $this->isVisible = $isVisible;
+
         return $this;
     }
 }

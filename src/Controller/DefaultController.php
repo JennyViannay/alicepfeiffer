@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
+use App\Form\ContactType;
 use App\Repository\ArticleRepository;
 use App\Repository\BioRepository;
 use App\Repository\BookRepository;
 use App\Repository\PressRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,19 +21,18 @@ class DefaultController extends AbstractController
     private $bookRepository;
 
     public function __construct(
-        BioRepository $bioRepository, 
-        ArticleRepository $articleRepository, 
-        PressRepository $pressRepository, 
+        BioRepository $bioRepository,
+        ArticleRepository $articleRepository,
+        PressRepository $pressRepository,
         BookRepository $bookRepository
-    )
-    {
+    ) {
         $this->bioRepository = $bioRepository;
         $this->articleRepository = $articleRepository;
         $this->pressRepository = $pressRepository;
         $this->bookRepository = $bookRepository;
     }
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="home", methods={"GET"})
      */
     public function index(): Response
     {
@@ -43,19 +45,53 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/contact", name="app_contact")
+     * @Route("/contact", name="app_contact", methods={"GET","POST"})
      */
-    public function contact(): Response
+    public function new(Request $request): Response
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-           // TODO : send mail aliceisyourfriend@gmail.com
-           dd($_POST); die;
-        }
-        return $this->render('default/contact.html.twig');
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($contact);
+            $entityManager->flush();
+            // TODO:success after contact post
+            // TODO:send mail to Alice after contact post
+            return $this->redirectToRoute('home');
+        } 
+        
+        return $this->render('default/contact.html.twig', [
+            'contact' => $contact,
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
-     * @Route("/articles", name="app_articles")
+     * @Route("/captchaverify", name="app_captchaverify", methods={"POST", "GET"})
+     */
+    public function captchaverify(Request $request): Response
+    {
+        $recaptcha = $request->getContent();
+        $url = "https://www.google.com/recaptcha/api/siteverify";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array(
+            "secret" => "6LfJMCQaAAAAAKNzSiCfPTsDoKj_-mf9kWbP2PLQ", "response" => $recaptcha
+        ));
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $data = json_decode($response);
+
+        return $this->json($data->success, 200);
+    }
+
+    /**
+     * @Route("/articles", name="app_articles", methods={"GET"})
      */
     public function articles(): Response
     {
@@ -65,7 +101,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/books", name="app_books")
+     * @Route("/books", name="app_books", methods={"GET"})
      */
     public function books(): Response
     {
@@ -75,7 +111,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/press", name="app_press")
+     * @Route("/press", name="app_press", methods={"GET"})
      */
     public function press(): Response
     {
