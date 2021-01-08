@@ -7,6 +7,7 @@ use App\Entity\Bio;
 use App\Entity\Book;
 use App\Entity\Contact;
 use App\Entity\Image;
+use App\Entity\Media;
 use App\Entity\Press;
 use App\Entity\SocialMedia;
 use App\Entity\Tag;
@@ -45,6 +46,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Articles', 'fas fa-newspaper', Article::class);
         yield MenuItem::linkToCrud('Press', 'far fa-newspaper', Press::class);
         yield MenuItem::linkToCrud('Books', 'fas fa-book', Book::class);
+        yield MenuItem::linkToCrud('Medias', 'fab fa-youtube', Media::class);
         yield MenuItem::section('Social Medias');
         yield MenuItem::linkToCrud('Links', 'fas fa-share', SocialMedia::class);
         yield MenuItem::linkToUrl('facebook', 'fab fa-facebook', 'https://www.facebook.com/public/Alice-Pfeiffer')

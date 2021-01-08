@@ -7,6 +7,7 @@ use App\Form\ContactType;
 use App\Repository\ArticleRepository;
 use App\Repository\BioRepository;
 use App\Repository\BookRepository;
+use App\Repository\MediaRepository;
 use App\Repository\PressRepository;
 use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,6 +21,7 @@ class DefaultController extends AbstractController
     private $articleRepository;
     private $pressRepository;
     private $bookRepository;
+    private $mediaRepository;
     private $mailerService;
 
     public function __construct(
@@ -27,12 +29,14 @@ class DefaultController extends AbstractController
         ArticleRepository $articleRepository,
         PressRepository $pressRepository,
         BookRepository $bookRepository,
+        MediaRepository $mediaRepository,
         MailerService $mailerService
     ) {
         $this->bioRepository = $bioRepository;
         $this->articleRepository = $articleRepository;
         $this->pressRepository = $pressRepository;
         $this->bookRepository = $bookRepository;
+        $this->mediaRepository = $mediaRepository;
         $this->mailerService = $mailerService;
     }
     /**
@@ -121,6 +125,16 @@ class DefaultController extends AbstractController
     {
         return $this->render('default/press.html.twig', [
             'presses' => $this->pressRepository->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("/medias", name="app_medias", methods={"GET"})
+     */
+    public function medias(): Response
+    {
+        return $this->render('default/medias.html.twig', [
+            'medias' => $this->mediaRepository->findAll()
         ]);
     }
 }

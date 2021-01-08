@@ -7,6 +7,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class TagCrudController extends AbstractCrudController
 {
@@ -15,16 +18,17 @@ class TagCrudController extends AbstractCrudController
         return Tag::class;
     }
 
-    /*
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            TextField::new('title', 'Name'),
+            AssociationField::new('articles'),
+            AssociationField::new('books'),
+            AssociationField::new('presses'),
+            AssociationField::new('medias')
         ];
     }
-    */
 
     public function configureActions(Actions $actions): Actions
     {
