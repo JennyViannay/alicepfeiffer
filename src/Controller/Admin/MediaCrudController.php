@@ -8,6 +8,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -20,12 +22,21 @@ class MediaCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        return [
+        $fields = [
             IdField::new('id')->onlyOnIndex(),
             TextField::new('title'),
             TextField::new('embedVideo', 'Embed Link YouTube'),
-            AssociationField::new('tags')
+            AssociationField::new('tags'),
+            BooleanField::new('isVisible')->onlyOnIndex()
         ];
+
+        if ($pageName == Crud::PAGE_DETAIL) {
+            $tags = CollectionField::new('tags')
+            ->setTemplatePath('admin/tags.html.twig');
+            array_push($fields, $tags);
+        } 
+
+        return $fields;
     }
 
     public function configureActions(Actions $actions): Actions

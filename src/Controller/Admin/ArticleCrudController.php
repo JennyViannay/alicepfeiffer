@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -46,6 +47,9 @@ class ArticleCrudController extends AbstractCrudController
 
         if ($pageName == Crud::PAGE_DETAIL) {
             $imageAlt = TextField::new('imageAlt', 'Image description');
+            $tags = CollectionField::new('tags')
+            ->setTemplatePath('admin/tags.html.twig');
+            array_push($fields, $tags);
             array_push($fields, $imageAlt);
         } 
 
