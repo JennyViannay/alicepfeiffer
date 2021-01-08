@@ -4,7 +4,30 @@
 
 {% block body %}
 <div class="container">
-    <h1>Books! ✅</h1>
-    {{dump(books)}}
+    <h1>Alice's Books!</h1>
+    {% for book in books %}
+    {% if book.isVisible %}
+    <div class="row">
+        <div class="col-6 m-auto">
+            <img src="{{ vich_uploader_asset(book, 'imageFile') }}" class="card-img-top" alt="{{book.imageAlt}}">
+        </div>
+        <div class="col-6 m-auto">
+            <h1>{{book.title}}</h1>
+            <p>Published On {{book.publishedAt|date('m-Y')}}</p>
+            <p><a href="{{book.link}}" target="_blank" class="btn btn-secondary">Buy</a></p>
+            <p>
+                <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"
+                    data-layout="button_count" data-size="small">
+                    <a target="_blank"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+                        class="fb-xfbml-parse-ignore">
+                        Partager
+                    </a>
+                </div>
+            </p>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
 </div>
 {% endblock %}

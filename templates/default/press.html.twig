@@ -8,8 +8,8 @@
     <div class="row">
         {% for press in presses %}
         {% if press.isVisible %}
-        <div class="col-4">
-            <div class="card my-4" style="width: 24rem;">
+        <div class="col-lg-4 col-md-6 col-lg-12">
+            <div class="card my-4">
                 {% if press.image %}
                 <img src="{{ vich_uploader_asset(press, 'imageFile') }}" class="card-img-top"
                     alt="{{press.imageAlt}}">
