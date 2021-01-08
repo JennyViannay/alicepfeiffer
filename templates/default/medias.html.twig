@@ -4,7 +4,11 @@
 
 {% block body %}
 <div class="container">
-    <h1>Medias! ✅</h1>
-    {{dump(medias)}}
+    <h1>Alice Medias!</h1>
+    {% for media in medias %}
+    {% if media.isVisible %}
+        <iframe width="560" height="315" src="{{media.embedVideo}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    {% endif %}
+    {% endfor %}
 </div>
 {% endblock %}

@@ -64,8 +64,8 @@ class AppFixtures extends Fixture
             $article = new Article();
             $article->setTitle($faker->catchPhrase())
             ->setLink($faker->url)
-            ->setImageLink('https://leprescripteur.prescriptionlab.com/wp-content/uploads/2018/10/Alice-Pfeiffer-femme-de-t%C3%AAte%E2%80%A6-et-de-cheveux-le-prescripteur-interview-prescription-lab-6.jpg')
-            ->setImage('5ff6b39e5b863544224463.jpg')
+            ->setImageLink('https://ibb.co/4gXW7TL')
+            ->setImage('5ff8396a4d1b7193122451.png')
             ->setImageAlt('Image description')
             ->setSlug($this->slugifyService->slugify($article->getTitle()))
             ->addTag($tags[0])
@@ -75,13 +75,13 @@ class AppFixtures extends Fixture
         }
 
         // Fixtures books
-        for($i = 0; $i < 5; $i++){
+        for($i = 0; $i < 2; $i++){
             $book = new Book();
             $book->setTitle($faker->catchPhrase())
             ->setPublishedAt(new \DateTime())
             ->setLink($faker->url)
-            ->setImageLink('https://www.lesmissives.fr/wp-content/uploads/2020/04/parisienne.jpg')
-            ->setImage('5ff6b39e5b863544224463.jpg')
+            ->setImageLink('https://ibb.co/HnG3ydG')
+            ->setImage('5ff844c252770108354429.png')
             ->addTag($tags[1])
             ->addTag($tags[4])
             ->addTag($tags[3])
@@ -94,8 +94,8 @@ class AppFixtures extends Fixture
             $press = new Press();
             $press->setMagazine($faker->word)
             ->setLink($faker->url)
-            ->setImageLink('https://s3.eu-west-3.amazonaws.com/magazineantidote.com/wp-content/uploads/2016/01/alice-pfeiffer-antidote-bis-2.jpg')
-            ->setImage('5ff6b39e5b863544224463.jpg')
+            ->setImageLink('https://ibb.co/4gXW7TL')
+            ->setImage('5ff8396a4d1b7193122451.png')
             ->addTag($tags[0])
             ->addTag($tags[2])
             ->addTag($tags[3])

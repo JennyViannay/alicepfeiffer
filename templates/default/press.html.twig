@@ -4,7 +4,32 @@
 
 {% block body %}
 <div class="container">
-    <h1>Press! ✅</h1>
-    {{dump(presses)}}
+    <h1>Corner Press!</h1>
+    <div class="row">
+        {% for press in presses %}
+        {% if press.isVisible %}
+        <div class="col-4">
+            <div class="card my-4" style="width: 24rem;">
+                {% if press.image %}
+                <img src="{{ vich_uploader_asset(press, 'imageFile') }}" class="card-img-top"
+                    alt="{{press.imageAlt}}">
+                {% else %}
+                <img src="{{press.imageLink}}" class="card-img-top" alt="{{press.imageAlt}}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{press.link}}" target="_blank">{{press.magazine}}</a></h5>
+                    <p class="card-text">
+                        <small>
+                            {% for tag in press.tags %}
+                                #{{tag.title}}
+                            {% endfor %}
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

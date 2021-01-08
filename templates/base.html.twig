@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alice Pfeiffer {% block title %}{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://kit.fontawesome.com/12c728ad22.js" crossorigin="anonymous"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@100;200;300;400;500;700&display=swap"
         rel="stylesheet">
@@ -37,10 +38,18 @@
             </div>
         </header>
         {% block body %}{% endblock %}
-        <footer class="mastfoot mt-auto text-center">
+        <footer class="mastfoot mt-auto text-center fixed-bottom">
+            <div class="row text-center">
+                <h4>Follow Me</h4>
+                <nav class="nav nav-masthead justify-content-center">
+                    <a class="nav-link" href="#"><i class="fab fa-facebook fa-2x"></i></a>
+                    <a class="nav-link" href="#"><i class="fab fa-instagram fa-2x"></i></a>
+                </nav>
+            </div>
             <div class="inner">
-                <p>Made with love for <a href="#">Alice Pfeiffer</a>, by <a href="https://github.com/JennyViannay"
-                        target="_blank">Jenny Viannay</a>.</p>
+                <p>
+                    Made with love for <a href="#">Alice Pfeiffer</a>, by <br> 
+                    &copy; Copyright - <a href="https://github.com/JennyViannay" target="_blank">Jenny Viannay</a></p>
             </div>
         </footer>
     </div>

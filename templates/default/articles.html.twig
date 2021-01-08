@@ -4,7 +4,32 @@
 
 {% block body %}
 <div class="container">
-    <h1>Articles! ✅</h1>
-    {{dump(articles)}}
+    <h1>Articles by Alice Pfeiffer!</h1>
+    <div class="row">
+        {% for article in articles %}
+        {% if article.isVisible %}
+        <div class="col-4">
+            <div class="card my-4" style="width: 24rem;">
+                {% if article.image %}
+                <img src="{{ vich_uploader_asset(article, 'imageFile') }}" class="card-img-top"
+                    alt="{{article.imageAlt}}">
+                {% else %}
+                <img src="{{article.imageLink}}" class="card-img-top" alt="{{article.imageAlt}}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title"><a href="">{{article.title}}</a></h5>
+                    <p class="card-text">
+                        <small>
+                            {% for tag in article.tags %}
+                            #{{tag.title}}
+                            {% endfor %}
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
