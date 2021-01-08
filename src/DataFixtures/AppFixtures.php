@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Article;
 use App\Entity\Bio;
 use App\Entity\Book;
+use App\Entity\Media;
 use App\Entity\Press;
 use App\Entity\SocialMedia;
 use App\Entity\Tag;
@@ -100,6 +101,17 @@ class AppFixtures extends Fixture
             ->addTag($tags[3])
             ->setImageAlt('Image description');
             $manager->persist($press);
+        }
+
+        for($i = 0; $i < 5; $i++){
+            $media = new Media();
+            $media->setTitle($faker->catchPhrase())
+            ->setSlug($this->slugifyService->slugify($book->getTitle()))
+            ->setEmbedVideo('https://www.youtube.com/embed/w1wzNkSZ7zs')
+            ->addTag($tags[0])
+            ->addTag($tags[2])
+            ->addTag($tags[1]);
+            $manager->persist($media);
         }
 
         $manager->flush();
