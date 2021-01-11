@@ -11,8 +11,9 @@
     <main role="main" class="inner cover text-center">
         <h1 class="cover-heading">Alice Pfeiffer</h1>
         <p class="lead">{{bio|raw}}</p>
-        {% if bio.imageLink %}
-        <img src="{{bio.imageLink}}" alt="Alice Pfeiffer portrait" class="img-fluid">
+        {% if bio.image %}
+        <img src="{{ vich_uploader_asset(bio, 'imageFile') }}" class="img-fluid"
+                    alt="{{bio.imageAlt}}">
         {% else %}
         <img src="{{bio.imageLink}}" alt="Alice Pfeiffer portrait" class="img-fluid">
         {% endif %}
