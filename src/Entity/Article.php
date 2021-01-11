@@ -88,6 +88,11 @@ class Article
         $this->isVisible = false;
     }
 
+    public function __toString()
+    {
+        return $this->title;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

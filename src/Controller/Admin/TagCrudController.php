@@ -21,12 +21,12 @@ class TagCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
+            IdField::new('id')->onlyOnIndex(),
             TextField::new('title', 'Name'),
-            AssociationField::new('articles'),
-            AssociationField::new('books'),
-            AssociationField::new('presses'),
-            AssociationField::new('medias')
+            AssociationField::new('articles')->onlyOnIndex(),
+            AssociationField::new('books')->onlyOnIndex(),
+            AssociationField::new('presses')->onlyOnIndex(),
+            AssociationField::new('medias')->onlyOnIndex()
         ];
     }
 

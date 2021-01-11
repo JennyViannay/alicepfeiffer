@@ -31,20 +31,5 @@
 {% block javascripts %}
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LfJMCQaAAAAAJfXuLTH8XpIyUbYJiFE52pMX4hO"></script>
-<script>
-    document.getElementById('form-contact').addEventListener('submit', e => {
-        e.preventDefault()
-        grecaptcha.ready(() => {
-            grecaptcha.execute('6LfJMCQaAAAAAJfXuLTH8XpIyUbYJiFE52pMX4hO', { action: 'submit' }).then((token) => {
-                axios.post('https://localhost:8000/captchaverify', token)
-                .then(response => {
-                    if (response.data === true) {
-                        document.getElementById('input-token').value = token
-                        document.getElementById('form-contact').submit()
-                    }
-                })
-            });
-        });
-    })
-</script>
+<script src="{{asset('assets/js/contact.js')}}"></script>
 {% endblock %}

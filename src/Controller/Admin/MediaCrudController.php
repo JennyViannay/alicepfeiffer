@@ -25,10 +25,17 @@ class MediaCrudController extends AbstractCrudController
         $fields = [
             IdField::new('id')->onlyOnIndex(),
             TextField::new('title'),
-            TextField::new('embedVideo', 'Embed Link YouTube'),
-            AssociationField::new('tags'),
-            BooleanField::new('isVisible')->onlyOnIndex()
+            BooleanField::new('isVisible')->onlyOnIndex(),
         ];
+
+        if ($pageName == Crud::PAGE_NEW) {
+            array_push($fields, TextField::new('title'));
+            array_push($fields, TextField::new('embedVideo', 'Embed Link YouTube'));
+        }
+
+        if ($pageName == Crud::PAGE_EDIT) {
+            array_push($fields, AssociationField::new('tags'));
+        }
 
         if ($pageName == Crud::PAGE_DETAIL) {
             $tags = CollectionField::new('tags')
@@ -43,10 +50,11 @@ class MediaCrudController extends AbstractCrudController
     {
         return $actions
             ->add(Crud::PAGE_INDEX, 'detail')
-            ->remove(Crud::PAGE_INDEX, 'edit')
-            ->remove(Crud::PAGE_DETAIL, 'edit')
             ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
                 return $action->setIcon('fa fa-trash')->setLabel(false);
+            })
+            ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
+                return $action->setIcon('fa fa-pen')->setLabel(false);
             })
             ->update(Crud::PAGE_INDEX, Action::DETAIL, function (Action $action) {
                 return $action->setIcon('fa fa-eye')->setLabel(false);
