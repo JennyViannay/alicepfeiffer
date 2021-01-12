@@ -7,7 +7,9 @@ use App\Entity\Bio;
 use App\Entity\Book;
 use App\Entity\Contact;
 use App\Entity\Image;
+use App\Entity\Media;
 use App\Entity\Press;
+use App\Entity\SocialMedia;
 use App\Entity\Tag;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -37,13 +39,22 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::section('Menu');
+        yield MenuItem::linktoRoute('Site', 'far fa-window-maximize', 'home');
+        yield MenuItem::section('Contact');
+        yield MenuItem::linkToCrud('Messages', 'fas fa-envelope', Contact::class);
+        yield MenuItem::section('Content');
         yield MenuItem::linkToCrud('Bio', 'far fa-user', Bio::class);
         yield MenuItem::linkToCrud('Articles', 'fas fa-newspaper', Article::class);
         yield MenuItem::linkToCrud('Press', 'far fa-newspaper', Press::class);
         yield MenuItem::linkToCrud('Books', 'fas fa-book', Book::class);
+        yield MenuItem::linkToCrud('Medias', 'fab fa-youtube', Media::class);
+        yield MenuItem::section('Social Medias');
+        yield MenuItem::linkToCrud('Links', 'fas fa-share', SocialMedia::class);
+        yield MenuItem::linkToUrl('facebook', 'fab fa-facebook', 'https://www.facebook.com/public/Alice-Pfeiffer')
+        ->setLinkTarget('_blank');
+        yield MenuItem::linkToUrl('instagram', 'fab fa-instagram', 'https://www.instagram.com/alicepfeiffer/?hl=en')
+        ->setLinkTarget('_blank');
+        yield MenuItem::section('SEO');
         yield MenuItem::linkToCrud('Tags', 'fas fa-hashtag', Tag::class);
-        yield MenuItem::section('Contact');
-        yield MenuItem::linkToCrud('Messages', 'fas fa-envelope', Contact::class);
     }
 }

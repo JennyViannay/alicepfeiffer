@@ -39,11 +39,17 @@ class Tag
      */
     private $books;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Media::class, mappedBy="tags")
+     */
+    private $medias;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->presses = new ArrayCollection();
         $this->books = new ArrayCollection();
+        $this->medias = new ArrayCollection();
     }
 
     public function __toString()
@@ -144,6 +150,33 @@ class Tag
     {
         if ($this->books->removeElement($book)) {
             $book->removeTag($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Media[]
+     */
+    public function getMedias(): Collection
+    {
+        return $this->medias;
+    }
+
+    public function addMedia(Media $media): self
+    {
+        if (!$this->medias->contains($media)) {
+            $this->medias[] = $media;
+            $media->addTag($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedia(Media $media): self
+    {
+        if ($this->medias->removeElement($media)) {
+            $media->removeTag($this);
         }
 
         return $this;

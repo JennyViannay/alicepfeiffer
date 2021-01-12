@@ -48,6 +48,11 @@ class Bio
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageAlt;
+
     public function __construct()
     {
         $this->updatedAt = new \DateTime('now');
@@ -122,6 +127,18 @@ class Bio
     {
         $this->updatedAt = new \DateTime;
         
+        return $this;
+    }
+
+    public function getImageAlt(): ?string
+    {
+        return $this->imageAlt;
+    }
+
+    public function setImageAlt(?string $imageAlt): self
+    {
+        $this->imageAlt = $imageAlt;
+
         return $this;
     }
 }

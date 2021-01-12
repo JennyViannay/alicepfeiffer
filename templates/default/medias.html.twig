@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}- Books{% endblock %}
+{% block title %}- Medias{% endblock %}
 
 {% block body %}
 <div class="container">
-    <h1>Alice's Books!</h1>
-    {% for book in books %}
-    {% if book.isVisible %}
-    <div class="row">
-        <div class="col-6 m-auto">
-            <img src="{{ vich_uploader_asset(book, 'imageFile') }}" class="card-img-top" alt="{{book.imageAlt}}">
-        </div>
-        <div class="col-6 m-auto">
-            <h1>{{book.title}}</h1>
-            <p>Published On {{book.publishedAt|date('m-Y')}}</p>
-            <p><a href="{{book.link}}" target="_blank" class="btn btn-secondary">Buy</a></p>
-            <p>
+    <h1>Alice Medias!</h1>
+    {% for media in medias %}
+    {% if media.isVisible %}
+    <div class="row my-2">
+        <div class="jumbotron p-3">
+            <h2>{{media.title}}</h2>
+            <iframe 
+                width="100%" height="315" src="{{media.embedVideo}}" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+            <div class="text-center">
                 <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"
                     data-layout="button_count" data-size="small">
                     <a target="_blank"
@@ -24,7 +24,7 @@
                         Partager
                     </a>
                 </div>
-            </p>
+            </div>
         </div>
     </div>
     {% endif %}

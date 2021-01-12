@@ -4,7 +4,45 @@
 
 {% block body %}
 <div class="container">
-    <h1>Articles! ✅</h1>
-    {{dump(articles)}}
+    <h1>Articles by Alice Pfeiffer!</h1>
+    <div class="row">
+        {% for article in articles %}
+        {% if article.isVisible %}
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card my-4">
+                {% if article.image %}
+                <img src="{{ vich_uploader_asset(article, 'imageFile') }}" class="card-img-top"
+                    alt="{{article.imageAlt}}">
+                {% else %}
+                <img src="{{article.imageLink}}" class="card-img-top" alt="{{article.imageAlt}}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title"><a href="">{{article.title}}</a></h5>
+                    <p class="card-text">
+                        <small>
+                            {% for tag in article.tags %}
+                            #{{tag.title}}
+                            {% endfor %}
+                        </small>
+                    </p>
+                    <div class="row">
+                        <div 
+                        class="fb-share-button" 
+                        data-href="https://developers.facebook.com/docs/plugins/"
+                        data-layout="button_count" 
+                        data-size="small">
+                            <a target="_blank"
+                                href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+                                class="fb-xfbml-parse-ignore">
+                                Partager
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
