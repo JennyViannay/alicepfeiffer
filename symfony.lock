@@ -108,9 +108,6 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.2"
     },
-    "fzaninotto/faker": {
-        "version": "v1.9.2"
-    },
     "jms/metadata": {
         "version": "2.4.0"
     },
