@@ -8,7 +8,7 @@
     <div class="row">
         {% for article in articles %}
         {% if article.isVisible %}
-        <div class="col-lg-4 col-md-6 col-lg-12">
+        <div class="col-lg-4 col-md-6 col-sm-12">
             <div class="card my-4">
                 {% if article.image %}
                 <img src="{{ vich_uploader_asset(article, 'imageFile') }}" class="card-img-top"
