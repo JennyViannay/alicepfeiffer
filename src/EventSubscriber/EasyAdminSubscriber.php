@@ -9,11 +9,9 @@ use App\Entity\Media;
 use App\Entity\Post;
 use App\Entity\Press;
 use App\Service\SlugifyService;
-use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeCrudActionEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Response;
 
 class EasyAdminSubscriber implements EventSubscriberInterface
 {

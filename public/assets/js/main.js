@@ -8,7 +8,7 @@ alertList.forEach(function (alert) {
 
 // Footer insert social media links
 let smList = document.getElementById('js-social-medias')
-axios.get('social-medias')
+axios.get('https://localhost:8000/social-medias')
 .then(response => response.data)
 .then(data => {
     data.map(socialMedia => {

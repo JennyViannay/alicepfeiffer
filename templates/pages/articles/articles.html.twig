@@ -9,7 +9,8 @@
         <div class="row">
             <ul class="list-group">
                 {% for tag in tags %}
-                <li class="list-group-item"><a href="{{ path('app_articles', {'tag' : tag.title }) }}">#{{tag.title}}</a></li>
+                <li class="list-group-item"><a
+                        href="{{ path('app_articles', {'tag' : tag.title }) }}">#{{tag.title}}</a></li>
                 {% endfor %}
             </ul>
         </div>

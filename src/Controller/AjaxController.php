@@ -59,6 +59,7 @@ class AjaxController extends AbstractController
         $response = curl_exec($ch);
         curl_close($ch);
         $data = json_decode($response);
+        
         return $this->json($data->success, 200);
     }
 

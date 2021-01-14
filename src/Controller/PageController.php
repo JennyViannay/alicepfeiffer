@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Entity\Post;
-use App\Entity\PostLike;
 use App\Form\ContactType;
 use App\Repository\ArticleRepository;
 use App\Repository\BioRepository;
@@ -31,7 +30,6 @@ class PageController extends AbstractController
     private $mediaRepository;
     private $tagRepository;
     private $postRepository;
-    private $postLikeRepository;
     private $legalMentionRepository;
     private $mailerService;
     private $instaService;
@@ -45,7 +43,6 @@ class PageController extends AbstractController
         TagRepository $tagRepository,
         PostRepository $postRepository,
         LegalMentionRepository $legalMentionRepository,
-        PostLikeRepository $postLikeRepository,
         MailerService $mailerService,
         InstagramService $instaService
     ) {
@@ -57,7 +54,6 @@ class PageController extends AbstractController
         $this->tagRepository = $tagRepository;
         $this->postRepository = $postRepository;
         $this->legalMentionRepository = $legalMentionRepository;
-        $this->postLikeRepository = $postLikeRepository;
         $this->mailerService = $mailerService;
         $this->instaService = $instaService;
     }
@@ -215,7 +211,6 @@ class PageController extends AbstractController
 
     /**
      * @Route("/search", name="app_search", methods={"GET"})
-     * @return Response
      */
     public function search(Request $request): Response
     {
