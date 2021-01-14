@@ -8,6 +8,7 @@ use App\Form\ContactType;
 use App\Repository\ArticleRepository;
 use App\Repository\BioRepository;
 use App\Repository\BookRepository;
+use App\Repository\LegalMentionRepository;
 use App\Repository\MediaRepository;
 use App\Repository\PressRepository;
 use App\Repository\TagRepository;
@@ -28,6 +29,7 @@ class DefaultController extends AbstractController
     private $mediaRepository;
     private $tagRepository;
     private $postRepository;
+    private $legalMentionRepository;
     private $mailerService;
     private $instaService;
 
@@ -39,6 +41,7 @@ class DefaultController extends AbstractController
         MediaRepository $mediaRepository,
         TagRepository $tagRepository,
         PostRepository $postRepository,
+        LegalMentionRepository $legalMentionRepository,
         MailerService $mailerService,
         InstagramService $instaService
     ) {
@@ -49,6 +52,7 @@ class DefaultController extends AbstractController
         $this->mediaRepository = $mediaRepository;
         $this->tagRepository = $tagRepository;
         $this->postRepository = $postRepository;
+        $this->legalMentionRepository = $legalMentionRepository;
         $this->mailerService = $mailerService;
         $this->instaService = $instaService;
     }
@@ -178,6 +182,16 @@ class DefaultController extends AbstractController
         return $this->render('default/follow_me.html.twig', [
             'insta' => $this->instaService->getInfosInstagramAccount(),
             'lastPosts' => $this->instaService->getLast12Posts()
+        ]);
+    }
+
+    /**
+     * @Route("/legal-mentions", name="app_mentions", methods={"GET"})
+     */
+    public function mentions(): Response
+    {
+        return $this->render('default/legal_mention.html.twig', [
+            'mentions' => $this->legalMentionRepository->findAll()
         ]);
     }
 

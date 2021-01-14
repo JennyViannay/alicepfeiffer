@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Bio;
 use App\Entity\Book;
 use App\Entity\Contact;
+use App\Entity\LegalMention;
 use App\Entity\Media;
 use App\Entity\Post;
 use App\Entity\Press;
@@ -50,13 +51,15 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Press', 'far fa-newspaper', Press::class);
         yield MenuItem::linkToCrud('Books', 'fas fa-book', Book::class);
         yield MenuItem::linkToCrud('Medias', 'fab fa-youtube', Media::class);
+        yield MenuItem::section('Filters');
+        yield MenuItem::linkToCrud('Tags', 'fas fa-hashtag', Tag::class);
         yield MenuItem::section('Social Medias');
         yield MenuItem::linkToCrud('Links', 'fas fa-share', SocialMedia::class);
         yield MenuItem::linkToUrl('facebook', 'fab fa-facebook', 'https://www.facebook.com/public/Alice-Pfeiffer')
         ->setLinkTarget('_blank');
         yield MenuItem::linkToUrl('instagram', 'fab fa-instagram', 'https://www.instagram.com/alicepfeiffer/?hl=en')
         ->setLinkTarget('_blank');
-        yield MenuItem::section('SEO');
-        yield MenuItem::linkToCrud('Tags', 'fas fa-hashtag', Tag::class);
+        yield MenuItem::section('Legal');
+        yield MenuItem::linkToCrud('Legal Mentions', 'fas fa-gavel', LegalMention::class);
     }
 }

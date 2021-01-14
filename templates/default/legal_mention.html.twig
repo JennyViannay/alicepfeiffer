@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}- Legal Mentions{% endblock %}
+
+{% block body %}
+<div class="container">
+   {% for mention in mentions %}
+        <h4>{{mention.title}}</h4>
+        <p>{{mention.content|raw}}</p>
+   {% endfor %}
+</div>
+{% endblock %}
