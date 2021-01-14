@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
+use App\Entity\PostLike;
+use App\Repository\PostLikeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,5 +60,32 @@ class AjaxController extends AbstractController
         curl_close($ch);
         $data = json_decode($response);
         return $this->json($data->success, 200);
+    }
+
+    /**
+     * @Route("/post/{id}/like", name="app_post_like", methods={"GET","POST"})
+     */
+    public function postLike(Post $post, Request $request, PostLikeRepository $postLikeRepository)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $ipClient = $request->getClientIp();
+
+        if(!$ipClient){
+            return $this->json(['message' => 'Unauthorized'], 403 );
+        }
+
+        if($post->isLikedByClient($ipClient)){
+            $like = $postLikeRepository->findOneBy(['post' => $post, 'ipClient' => $ipClient]);
+            $em->remove($like);
+            $em->flush();
+            return $this->json(['message' => 'Unliked', 'likes' => $postLikeRepository->count(['post' => $post])], 200 );
+        }
+        
+        $like = new PostLike();
+        $like->setPost($post)->setIpClient($ipClient);
+        $em->persist($like);
+        $em->flush();
+
+        return $this->json(['message' => 'Liked', 'likes' => $postLikeRepository->count(['post' => $post])], 200 );
     }
 }

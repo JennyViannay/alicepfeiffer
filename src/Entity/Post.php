@@ -47,12 +47,18 @@ class Post
      */
     private $slug;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PostLike::class, mappedBy="post", orphanRemoval=true)
+     */
+    private $likes;
+
     public function __construct()
     {
         $this->author = "Alice Pfeiffer";
         $this->createdAt = new \DateTime('now');
         $this->tags = new ArrayCollection();
         $this->isVisible = false;
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -130,5 +136,43 @@ class Post
         $this->slug = $slug;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|PostLike[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(PostLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(PostLike $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getPost() === $this) {
+                $like->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isLikedByClient($client) : bool
+    {
+        foreach($this->likes as $like){
+            if($like->getIpClient() === $client) return true;
+        }
+        return false;
     }
 }

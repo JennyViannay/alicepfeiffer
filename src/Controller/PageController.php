@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Entity\Post;
+use App\Entity\PostLike;
 use App\Form\ContactType;
 use App\Repository\ArticleRepository;
 use App\Repository\BioRepository;
@@ -13,6 +14,7 @@ use App\Repository\MediaRepository;
 use App\Repository\PressRepository;
 use App\Repository\TagRepository;
 use App\Repository\PostRepository;
+use App\Repository\PostLikeRepository;
 use App\Service\InstagramService;
 use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController extends AbstractController
+class PageController extends AbstractController
 {
     private $bioRepository;
     private $articleRepository;
@@ -29,6 +31,7 @@ class DefaultController extends AbstractController
     private $mediaRepository;
     private $tagRepository;
     private $postRepository;
+    private $postLikeRepository;
     private $legalMentionRepository;
     private $mailerService;
     private $instaService;
@@ -42,6 +45,7 @@ class DefaultController extends AbstractController
         TagRepository $tagRepository,
         PostRepository $postRepository,
         LegalMentionRepository $legalMentionRepository,
+        PostLikeRepository $postLikeRepository,
         MailerService $mailerService,
         InstagramService $instaService
     ) {
@@ -53,15 +57,16 @@ class DefaultController extends AbstractController
         $this->tagRepository = $tagRepository;
         $this->postRepository = $postRepository;
         $this->legalMentionRepository = $legalMentionRepository;
+        $this->postLikeRepository = $postLikeRepository;
         $this->mailerService = $mailerService;
         $this->instaService = $instaService;
     }
     /**
      * @Route("/", name="home", methods={"GET"})
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        return $this->render('default/index.html.twig', [
+        return $this->render('pages/index.html.twig', [
             'bio' => $this->bioRepository->findAll()[0],
             'articles' => $this->articleRepository->findAll(),
             'presses' => $this->pressRepository->findAll(),
@@ -87,7 +92,7 @@ class DefaultController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('default/contact/contact.html.twig', [
+        return $this->render('pages/contact/contact.html.twig', [
             'contact' => $contact,
             'form' => $form->createView(),
         ]);
@@ -104,7 +109,7 @@ class DefaultController extends AbstractController
             $tag = $this->tagRepository->findOneBy(["title" => $tag]);
             $byTag = $tag->getPosts();
         }
-        return $this->render('default/posts/posts.html.twig', [
+        return $this->render('pages/posts/posts.html.twig', [
             'posts' => $byTag ? $byTag : $posts,
             'tags' => $this->tagRepository->findAll()
         ]);
@@ -115,7 +120,7 @@ class DefaultController extends AbstractController
      */
     public function post(Post $post): Response
     {
-        return $this->render('default/posts/show_post.html.twig', [
+        return $this->render('pages/posts/show_post.html.twig', [
             'post' => $post
         ]);
     }
@@ -131,7 +136,7 @@ class DefaultController extends AbstractController
             $tag = $this->tagRepository->findOneBy(["title" => $tag]);
             $byTag = $tag->getArticles();
         }
-        return $this->render('default/articles/articles.html.twig', [
+        return $this->render('pages/articles/articles.html.twig', [
             'articles' => $byTag ? $byTag : $articles,
             'tags' => $this->tagRepository->findAll()
         ]);
@@ -142,7 +147,7 @@ class DefaultController extends AbstractController
      */
     public function books(): Response
     {
-        return $this->render('default/books/books.html.twig', [
+        return $this->render('pages/books/books.html.twig', [
             'books' => $this->bookRepository->findAll()
         ]);
     }
@@ -158,7 +163,7 @@ class DefaultController extends AbstractController
             $tag = $this->tagRepository->findOneBy(["title" => $tag]);
             $byTag = $tag->getArticles();
         }
-        return $this->render('default/press/press.html.twig', [
+        return $this->render('pages/press/press.html.twig', [
             'presses' => $byTag ? $byTag : $presses,
             'tags' => $this->tagRepository->findAll()
         ]);
@@ -169,7 +174,7 @@ class DefaultController extends AbstractController
      */
     public function medias(): Response
     {
-        return $this->render('default/medias/medias.html.twig', [
+        return $this->render('pages/medias/medias.html.twig', [
             'medias' => $this->mediaRepository->findAll()
         ]);
     }
@@ -179,7 +184,7 @@ class DefaultController extends AbstractController
      */
     public function followMe(): Response
     {
-        return $this->render('default/instagram/follow_me.html.twig', [
+        return $this->render('pages/instagram/follow_me.html.twig', [
             'insta' => $this->instaService->getInfosInstagramAccount(),
             'lastPosts' => $this->instaService->getLast12Posts()
         ]);
@@ -190,7 +195,7 @@ class DefaultController extends AbstractController
      */
     public function mentions(): Response
     {
-        return $this->render('default/annexes/legal_mention.html.twig', [
+        return $this->render('pages/annexes/legal_mention.html.twig', [
             'mentions' => $this->legalMentionRepository->findAll()
         ]);
     }
@@ -208,7 +213,7 @@ class DefaultController extends AbstractController
             $results = $this->tagRepository->findBy(['title' => $query]);
         }
 
-        return $this->render('default/filter/result_search.html.twig', [
+        return $this->render('pages/filter/result_search.html.twig', [
             'results' => $results,
         ]);
     }

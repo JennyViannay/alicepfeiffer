@@ -22,6 +22,7 @@
             <div class="card my-4">
                 <div class="card-body">
                     <h3 class="card-title"><a href="{{path('app_post', {'slug' : post.slug })}}">{{post.title}}</a></h3>
+                    <p>Likes = {{post.likes|length}}</p>
                     <p class="card-text">
                         <p>{{post.content|raw}}</p>
                         <small>
