@@ -30,7 +30,8 @@ class ArticleCrudController extends AbstractCrudController
             TextField::new('link'),
             TextField::new('imageLink'),
             AssociationField::new('tags'),
-            BooleanField::new('isVisible')->onlyOnIndex()
+            BooleanField::new('isVisible')->onlyOnIndex(),
+            AssociationField::new('magazine'),
         ];
 
         if ($pageName == Crud::PAGE_NEW || $pageName == Crud::PAGE_EDIT) {

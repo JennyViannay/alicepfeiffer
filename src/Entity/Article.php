@@ -77,6 +77,12 @@ class Article
      */
     private $slug;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Press::class, inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $magazine;
+
     public function __construct()
     {
         $this->updatedAt = new \DateTime('now');
@@ -225,6 +231,18 @@ class Article
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getMagazine(): ?Press
+    {
+        return $this->magazine;
+    }
+
+    public function setMagazine(?Press $magazine): self
+    {
+        $this->magazine = $magazine;
 
         return $this;
     }
