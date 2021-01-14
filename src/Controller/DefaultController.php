@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\Post;
 use App\Form\ContactType;
 use App\Repository\ArticleRepository;
 use App\Repository\BioRepository;
@@ -10,9 +11,10 @@ use App\Repository\BookRepository;
 use App\Repository\MediaRepository;
 use App\Repository\PressRepository;
 use App\Repository\TagRepository;
+use App\Repository\PostRepository;
+use App\Service\InstagramService;
 use App\Service\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,7 +27,9 @@ class DefaultController extends AbstractController
     private $bookRepository;
     private $mediaRepository;
     private $tagRepository;
+    private $postRepository;
     private $mailerService;
+    private $instaService;
 
     public function __construct(
         BioRepository $bioRepository,
@@ -34,7 +38,9 @@ class DefaultController extends AbstractController
         BookRepository $bookRepository,
         MediaRepository $mediaRepository,
         TagRepository $tagRepository,
-        MailerService $mailerService
+        PostRepository $postRepository,
+        MailerService $mailerService,
+        InstagramService $instaService
     ) {
         $this->bioRepository = $bioRepository;
         $this->articleRepository = $articleRepository;
@@ -42,7 +48,9 @@ class DefaultController extends AbstractController
         $this->bookRepository = $bookRepository;
         $this->mediaRepository = $mediaRepository;
         $this->tagRepository = $tagRepository;
+        $this->postRepository = $postRepository;
         $this->mailerService = $mailerService;
+        $this->instaService = $instaService;
     }
     /**
      * @Route("/", name="home", methods={"GET"})
@@ -60,7 +68,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/contact", name="app_contact", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function contact(Request $request): Response
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
@@ -82,33 +90,46 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/captchaverify", name="app_captchaverify", methods={"POST", "GET"})
+     * @Route("/posts/{tag}", name="app_posts", methods={"GET"})
      */
-    public function captchaverify(Request $request): Response
+    public function posts(string $tag = null): Response
     {
-        $recaptcha = $request->getContent();
-        $url = "https://www.google.com/recaptcha/api/siteverify";
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, array(
-            "secret" => "6LfJMCQaAAAAAKNzSiCfPTsDoKj_-mf9kWbP2PLQ", "response" => $recaptcha
-        ));
-        $response = curl_exec($ch);
-        curl_close($ch);
-        $data = json_decode($response);
-        return $this->json($data->success, 200);
+        $posts = $this->postRepository->findAll();
+        $byTag = [];
+        if($tag){
+            $tag = $this->tagRepository->findOneBy(["title" => $tag]);
+            $byTag = $tag->getPosts();
+        }
+        return $this->render('default/posts.html.twig', [
+            'posts' => $byTag ? $byTag : $posts,
+            'tags' => $this->tagRepository->findAll()
+        ]);
     }
 
     /**
-     * @Route("/articles", name="app_articles", methods={"GET"})
+     * @Route("/read/{slug}", name="app_post", methods={"GET"})
      */
-    public function articles(): Response
+    public function post(Post $post): Response
     {
+        return $this->render('default/show_post.html.twig', [
+            'post' => $post
+        ]);
+    }
+
+    /**
+     * @Route("/articles/{tag}", name="app_articles", methods={"GET"})
+     */
+    public function articles(string $tag = null): Response
+    {
+        $articles = $this->articleRepository->findAll();
+        $byTag = [];
+        if($tag){
+            $tag = $this->tagRepository->findOneBy(["title" => $tag]);
+            $byTag = $tag->getArticles();
+        }
         return $this->render('default/articles.html.twig', [
-            'articles' => $this->articleRepository->findAll()
+            'articles' => $byTag ? $byTag : $articles,
+            'tags' => $this->tagRepository->findAll()
         ]);
     }
 
@@ -123,12 +144,19 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/press", name="app_press", methods={"GET"})
+     * @Route("/press/{tag}", name="app_press", methods={"GET"})
      */
-    public function press(): Response
+    public function press(string $tag = null): Response
     {
+        $presses = $this->pressRepository->findAll();
+        $byTag = [];
+        if($tag){
+            $tag = $this->tagRepository->findOneBy(["title" => $tag]);
+            $byTag = $tag->getArticles();
+        }
         return $this->render('default/press.html.twig', [
-            'presses' => $this->pressRepository->findAll()
+            'presses' => $byTag ? $byTag : $presses,
+            'tags' => $this->tagRepository->findAll()
         ]);
     }
 
@@ -139,6 +167,17 @@ class DefaultController extends AbstractController
     {
         return $this->render('default/medias.html.twig', [
             'medias' => $this->mediaRepository->findAll()
+        ]);
+    }
+    
+    /**
+     * @Route("/follow-me", name="app_follow_me", methods={"GET"})
+     */
+    public function followMe(): Response
+    {
+        return $this->render('default/follow_me.html.twig', [
+            'insta' => $this->instaService->getInfosInstagramAccount(),
+            'lastPosts' => $this->instaService->getLast12Posts()
         ]);
     }
 
@@ -160,19 +199,4 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/autocomplete", name="app_autocomplete", methods={"GET"})
-     * @return Response
-     */
-    public function autocomplete(Request $request): Response
-    {
-        $query = $request->query->get('q');
-
-        $results = [];
-        if (null !== $query) {
-            $results = $this->tagRepository->findByQuery($query);
-        }
-
-        return new JsonResponse($results, 200);
-    }
 }

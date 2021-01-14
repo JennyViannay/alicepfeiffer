@@ -6,8 +6,8 @@ use App\Entity\Article;
 use App\Entity\Bio;
 use App\Entity\Book;
 use App\Entity\Contact;
-use App\Entity\Image;
 use App\Entity\Media;
+use App\Entity\Post;
 use App\Entity\Press;
 use App\Entity\SocialMedia;
 use App\Entity\Tag;
@@ -27,7 +27,7 @@ class DashboardController extends AbstractDashboardController
     {
         $routeBuilder = $this->get(CrudUrlGenerator::class)->build();
 
-        return $this->redirect($routeBuilder->setController(ArticleCrudController::class)->generateUrl());
+        return $this->redirect($routeBuilder->setController(PostCrudController::class)->generateUrl());
     }
 
     public function configureDashboard(): Dashboard
@@ -40,9 +40,11 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linktoRoute('Site', 'far fa-window-maximize', 'home');
+        yield MenuItem::section('Blog');
+        yield MenuItem::linkToCrud('Posts', 'fas fa-blog', Post::class);
         yield MenuItem::section('Contact');
         yield MenuItem::linkToCrud('Messages', 'fas fa-envelope', Contact::class);
-        yield MenuItem::section('Content');
+        yield MenuItem::section('Site Content');
         yield MenuItem::linkToCrud('Bio', 'far fa-user', Bio::class);
         yield MenuItem::linkToCrud('Articles', 'fas fa-newspaper', Article::class);
         yield MenuItem::linkToCrud('Press', 'far fa-newspaper', Press::class);

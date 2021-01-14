@@ -15,6 +15,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Article
 {
+    use Author;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -56,11 +58,6 @@ class Article
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $author;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="articles")
      */
     private $tags;
@@ -82,10 +79,10 @@ class Article
 
     public function __construct()
     {
-        $this->author = "Alice Pfeiffer";
         $this->updatedAt = new \DateTime('now');
         $this->tags = new ArrayCollection();
         $this->isVisible = false;
+        $this->author = "Alice Pfeiffer";
     }
 
     public function __toString()
@@ -156,18 +153,6 @@ class Article
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
 
         return $this;
     }

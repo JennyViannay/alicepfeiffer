@@ -3,6 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="name" content="Alice Pfeiffer">
+    <meta name="description" content="Alice Pfeiffer web site :TODO:">
+    <meta name="keywords" content=":TODO:">
+    <meta name="content" content="KEY WORD HERE :TODO:">
+    <meta name="author" content="Jenny Viannay & Océane Kolau">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alice Pfeiffer {% block title %}{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -12,15 +17,37 @@
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{asset('assets/style.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/bootstrap-social.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{asset('assets/css/mobile.css')}}" type="text/css" media="screen and (max-device-width: 480px)">
     {% block stylesheets %}{% endblock %}
 </head>
 
 <body>
-    <div class="container p-3 mx-auto">
+    <div class="container p-3 mx-auto fixed-top">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{path('home')}}"><h1>Alice Pfeiffer</h1></a>
+                <a class="navbar-brand" href="{{path('home')}}">
+                    <h1>Alice
+                        {% if app.request.get('_route') == 'app_posts' %}
+                        's posts
+                        {% elseif app.request.get('_route') == 'app_articles' %}
+                        's articles
+                        {% elseif app.request.get('_route') == 'app_press' %}
+                        's press
+                        {% elseif app.request.get('_route') == 'app_books' %}
+                        's books
+                        {% elseif app.request.get('_route') == 'app_medias' %}
+                        's medias
+                        {% elseif app.request.get('_route') == 'app_contact' %}
+                         Pfeiffer
+                        {% elseif app.request.get('_route') == 'app_follow_me' %}
+                        's Insta
+                        {% else %}
+                         Pfeiffer
+                        {% endif %}
+                    </h1>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -29,47 +56,58 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{path('home')}}">Home</a>
+                            <a class="nav-link {{app.request.get('_route') == 'home' ? 'active' : ''}}" 
+                            href="{{path('home')}}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('app_articles')}}">Articles</a>
+                            <a class="nav-link {{app.request.get('_route') == 'app_posts' ? 'active' : ''}}" 
+                            href="{{path('app_posts')}}">Posts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('app_press')}}">Press</a>
+                            <a class="nav-link {{app.request.get('_route') == 'app_articles' ? 'active' : ''}}" 
+                            href="{{path('app_articles')}}">Articles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('app_books')}}">Books</a>
+                            <a class="nav-link {{app.request.get('_route') == 'app_press' ? 'active' : ''}}"  
+                            href="{{path('app_press')}}">Press</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('app_medias')}}">Medias</a>
+                            <a class="nav-link {{app.request.get('_route') == 'app_books' ? 'active' : ''}}"  
+                            href="{{path('app_books')}}">Books</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('app_contact')}}">Contact</a>
+                            <a class="nav-link {{app.request.get('_route') == 'app_medias' ? 'active' : ''}}"  
+                            href="{{path('app_medias')}}">Medias</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{app.request.get('_route') == 'app_follow_me' ? 'active' : ''}}"  
+                            href="{{path('app_follow_me')}}">Follow Me</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{app.request.get('_route') == 'app_contact' ? 'active' : ''}}" 
+                            href="{{path('app_contact')}}">Contact</a>
                         </li>
                     </ul>
                     <form class="d-flex" method="GET" action="{{ path('app_search') }}">
-                        <input 
-                        class="form-control me-2" 
-                        type="search" 
-                        id="search_input" 
-                        name="q" 
-                        placeholder="Search" 
-                        aria-label="Search"
-                        list="datalistOptions">
+                        <input class="form-control me-2" type="search" id="search_input" name="q" placeholder="Search"
+                            aria-label="Search" list="datalistOptions">
                         <datalist id="datalistOptions"></datalist>
                         <button class="btn btn-outline-secondary" type="submit">Search</button>
                     </form>
                 </div>
             </div>
         </nav>
+    </div>
+    <div class="container p-3 mx-auto">
+        <div style="height : 100px"></div>
         {% block body %}{% endblock %}
         <div style="height : 125px"></div>
         <footer class="mastfoot mt-auto text-center pt-3">
             <div class="row text-center">
                 <h4>Follow Me</h4>
-                <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link" href="#"><i class="fab fa-facebook fa-2x"></i></a>
-                    <a class="nav-link" href="#"><i class="fab fa-instagram fa-2x"></i></a>
+                <nav class="nav nav-masthead justify-content-center" id="js-social-medias">
+                    {# <a class="nav-link" href="#"><i class="fab fa-facebook fa-2x"></i></a>
+                    <a class="nav-link" href="#"><i class="fab fa-instagram fa-2x"></i></a> #}
                 </nav>
             </div>
             <div class="inner">

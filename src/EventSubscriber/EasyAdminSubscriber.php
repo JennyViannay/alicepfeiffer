@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Bio;
 use App\Entity\Book;
 use App\Entity\Media;
+use App\Entity\Post;
 use App\Entity\Press;
 use App\Service\SlugifyService;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
@@ -32,7 +33,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     {
         $entity = $event->getEntityInstance();
 
-        if ($entity instanceof Article || $entity instanceof Book || $entity instanceof Media) {
+        if ($entity instanceof Article || $entity instanceof Book || $entity instanceof Media || $entity instanceOf Post) {
             $slug = $this->slugger->slugify($entity->getTitle());
             $entity->setSlug($slug);
             if ($entity instanceof Media) {

@@ -4,24 +4,26 @@
 
 {% block body %}
 <div class="container">
-    <h1>Corner Press!</h1>
+    <div class="float-end">
+        <a href="{{path('app_press')}}">All press</a>
+    </div>
     <div class="row">
+        {% if presses is not empty %}
         {% for press in presses %}
         {% if press.isVisible %}
         <div class="col-lg-4 col-md-6 col-sm-12">
             <div class="card my-4">
                 {% if press.image %}
-                <img src="{{ vich_uploader_asset(press, 'imageFile') }}" class="card-img-top"
-                    alt="{{press.imageAlt}}">
+                <img src="{{ vich_uploader_asset(press, 'imageFile') }}" class="card-img-top" alt="{{press.imageAlt}}">
                 {% else %}
                 <img src="{{press.imageLink}}" class="card-img-top" alt="{{press.imageAlt}}">
                 {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title"><a href="{{press.link}}" target="_blank">{{press.magazine}}</a></h5>
+                    <h3 class="card-title"><a href="{{press.link}}" target="_blank">{{press.magazine}}</a></h3>
                     <p class="card-text">
                         <small>
                             {% for tag in press.tags %}
-                                #{{tag.title}}
+                            <a href="{{ path('app_press', {'tag' : tag.title }) }}">#{{tag.title}}</a>
                             {% endfor %}
                         </small>
                     </p>
@@ -30,6 +32,9 @@
         </div>
         {% endif %}
         {% endfor %}
+        {% else %}
+        No result found
+        {% endif %}
     </div>
 </div>
 {% endblock %}

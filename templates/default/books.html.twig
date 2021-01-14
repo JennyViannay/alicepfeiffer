@@ -4,7 +4,6 @@
 
 {% block body %}
 <div class="container">
-    <h1>Alice's Books!</h1>
     {% for book in books %}
     {% if book.isVisible %}
     <div class="row">
@@ -12,7 +11,7 @@
             <img src="{{ vich_uploader_asset(book, 'imageFile') }}" class="card-img-top" alt="{{book.imageAlt}}">
         </div>
         <div class="col-6 m-auto">
-            <h1>{{book.title}}</h1>
+            <h2>{{book.title}}</h2>
             <p>Published On {{book.publishedAt|date('m-Y')}}</p>
             <p><a href="{{book.link}}" target="_blank" class="btn btn-secondary">Buy</a></p>
             <p>

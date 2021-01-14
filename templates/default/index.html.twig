@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
 <div class="container-fluid mt-5">
     {% for message in app.flashes('success') %}
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -9,7 +10,7 @@
     </div>
     {% endfor %}
     <main role="main" class="inner cover text-center">
-        <h1 class="cover-heading">Alice Pfeiffer</h1>
+        <h2 class="cover-heading">Alice Pfeiffer</h2>
         <p class="lead">{{bio|raw}}</p>
         {% if bio.image %}
         <img src="{{ vich_uploader_asset(bio, 'imageFile') }}" class="img-fluid"
