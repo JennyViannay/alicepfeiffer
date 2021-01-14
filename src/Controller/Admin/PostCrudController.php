@@ -28,6 +28,7 @@ class PostCrudController extends AbstractCrudController
             TextField::new('title'),
             TextEditorField::new('content'),
             AssociationField::new('tags'),
+            AssociationField::new('likes')->onlyOnIndex(),
         ];
 
         if ($pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL) {

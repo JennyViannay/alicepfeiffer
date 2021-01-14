@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Bio;
 use App\Entity\Book;
 use App\Entity\Media;
+use App\Entity\Post;
 use App\Entity\Press;
 use App\Entity\SocialMedia;
 use App\Entity\Tag;
@@ -29,7 +30,7 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create();
+        $faker = \Faker\Factory::create();
 
         $user = new User();
         $password = $this->encoder->encodePassword($user, 'password');
@@ -57,6 +58,18 @@ class AppFixtures extends Fixture
             $tag->setTitle($faker->word);
             $manager->persist($tag);
             $tags[] = $tag;
+        }
+
+        // Fixtures posts
+        for($i = 0; $i < 5; $i++){
+            $post = new Post();
+            $post->setTitle($faker->catchPhrase())
+            ->setContent($faker->paragraph())
+            ->setSlug($this->slugifyService->slugify($post->getTitle()))
+            ->addTag($tags[0])
+            ->addTag($tags[1])
+            ->addTag($tags[2]);
+            $manager->persist($post);
         }
 
         // Fixtures articles

@@ -7,7 +7,9 @@
     <div class="float-end">
         <a href="{{path('app_posts')}}">All Posts</a>
     </div>
-
+    {% for post in suggestions %}
+        {{post.title}} <br>
+    {% endfor %}
     <div class="row">
         <div class="jumbotron">
             <h2 class="card-title">{{post.title}}</h2>

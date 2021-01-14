@@ -70,13 +70,6 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         if ($entity instanceof Article || $entity instanceof Book || $entity instanceof Media || $entity instanceOf Post) {
             $slug = $this->slugger->slugify($entity->getTitle());
             $entity->setSlug($slug);
-            if ($entity instanceof Media) {
-                    $linkToEmbed = $entity->getEmbedVideo();
-                    $first = explode(' ', $linkToEmbed);
-                    $string = str_replace("src=\"", "", $first[3]);
-                    $finalString = str_replace("\"", "", $string);
-                    $entity->setEmbedVideo($finalString);
-            }
         }
         if (
             $entity instanceof Article

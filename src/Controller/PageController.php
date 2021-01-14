@@ -105,7 +105,7 @@ class PageController extends AbstractController
     {
         $posts = $this->postRepository->findAll();
         $byTag = [];
-        if($tag){
+        if ($tag) {
             $tag = $this->tagRepository->findOneBy(["title" => $tag]);
             $byTag = $tag->getPosts();
         }
@@ -120,8 +120,21 @@ class PageController extends AbstractController
      */
     public function post(Post $post): Response
     {
+        $suggestions = [];
+        $tags = $post->getTags();
+
+        for ($i = 0 ; $i < count($tags) ; $i++) {
+            $posts = $tags[$i]->getPosts();
+            if($posts[$i]) {
+                if ($posts[$i]->getId() !== $post->getId()) {
+                    $suggestions[] = $posts[$i];
+                }
+            }
+        }
+        
         return $this->render('pages/posts/show_post.html.twig', [
-            'post' => $post
+            'post' => $post,
+            'suggestions' => $suggestions
         ]);
     }
 
@@ -132,7 +145,7 @@ class PageController extends AbstractController
     {
         $articles = $this->articleRepository->findAll();
         $byTag = [];
-        if($tag){
+        if ($tag) {
             $tag = $this->tagRepository->findOneBy(["title" => $tag]);
             $byTag = $tag->getArticles();
         }
@@ -159,7 +172,7 @@ class PageController extends AbstractController
     {
         $presses = $this->pressRepository->findAll();
         $byTag = [];
-        if($tag){
+        if ($tag) {
             $tag = $this->tagRepository->findOneBy(["title" => $tag]);
             $byTag = $tag->getArticles();
         }
@@ -178,7 +191,7 @@ class PageController extends AbstractController
             'medias' => $this->mediaRepository->findAll()
         ]);
     }
-    
+
     /**
      * @Route("/follow-me", name="app_follow_me", methods={"GET"})
      */
@@ -217,5 +230,4 @@ class PageController extends AbstractController
             'results' => $results,
         ]);
     }
-
 }
