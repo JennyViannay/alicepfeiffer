@@ -5,7 +5,7 @@
 {% block body %}
 <div class="container">
     {% if insta.message %}
-    Api Instagram not available
+    Api Instagram is not available
     {% else %}
     <div class="text-center">
         {# <img src="{{insta.profile_pic_url_hd}}" alt="{{insta.username}} instagram profile picture" class="img-fluid avatar"> #}
@@ -15,7 +15,7 @@
         <p>Followers : {{insta.edge_followed_by.count}} - Following : {{insta.edge_follow.count}}</p>
     </div>
     {% if lastPosts.message %}
-    Api Instagram not available
+    Api Instagram is not available
     {% else %}
     <div class="row">
         {% for post in lastPosts.edges %}

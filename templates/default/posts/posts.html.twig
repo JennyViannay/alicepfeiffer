@@ -25,6 +25,7 @@
                     <p class="card-text">
                         <p>{{post.content|raw}}</p>
                         <small>
+                            <p>{{post.createdAt|date('d-m-Y')}} - writed by {{post.author}}</p>
                             {% for tag in post.tags %}
                             <a href="{{ path('app_posts', {'tag' : tag.title }) }}">#{{tag.title}}</a>
                             {% endfor %}

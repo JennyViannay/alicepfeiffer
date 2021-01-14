@@ -87,7 +87,7 @@ class DefaultController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('default/contact.html.twig', [
+        return $this->render('default/contact/contact.html.twig', [
             'contact' => $contact,
             'form' => $form->createView(),
         ]);
@@ -104,7 +104,7 @@ class DefaultController extends AbstractController
             $tag = $this->tagRepository->findOneBy(["title" => $tag]);
             $byTag = $tag->getPosts();
         }
-        return $this->render('default/posts.html.twig', [
+        return $this->render('default/posts/posts.html.twig', [
             'posts' => $byTag ? $byTag : $posts,
             'tags' => $this->tagRepository->findAll()
         ]);
@@ -115,7 +115,7 @@ class DefaultController extends AbstractController
      */
     public function post(Post $post): Response
     {
-        return $this->render('default/show_post.html.twig', [
+        return $this->render('default/posts/show_post.html.twig', [
             'post' => $post
         ]);
     }
@@ -131,7 +131,7 @@ class DefaultController extends AbstractController
             $tag = $this->tagRepository->findOneBy(["title" => $tag]);
             $byTag = $tag->getArticles();
         }
-        return $this->render('default/articles.html.twig', [
+        return $this->render('default/articles/articles.html.twig', [
             'articles' => $byTag ? $byTag : $articles,
             'tags' => $this->tagRepository->findAll()
         ]);
@@ -142,7 +142,7 @@ class DefaultController extends AbstractController
      */
     public function books(): Response
     {
-        return $this->render('default/books.html.twig', [
+        return $this->render('default/books/books.html.twig', [
             'books' => $this->bookRepository->findAll()
         ]);
     }
@@ -158,7 +158,7 @@ class DefaultController extends AbstractController
             $tag = $this->tagRepository->findOneBy(["title" => $tag]);
             $byTag = $tag->getArticles();
         }
-        return $this->render('default/press.html.twig', [
+        return $this->render('default/press/press.html.twig', [
             'presses' => $byTag ? $byTag : $presses,
             'tags' => $this->tagRepository->findAll()
         ]);
@@ -169,7 +169,7 @@ class DefaultController extends AbstractController
      */
     public function medias(): Response
     {
-        return $this->render('default/medias.html.twig', [
+        return $this->render('default/medias/medias.html.twig', [
             'medias' => $this->mediaRepository->findAll()
         ]);
     }
@@ -179,7 +179,7 @@ class DefaultController extends AbstractController
      */
     public function followMe(): Response
     {
-        return $this->render('default/follow_me.html.twig', [
+        return $this->render('default/instagram/follow_me.html.twig', [
             'insta' => $this->instaService->getInfosInstagramAccount(),
             'lastPosts' => $this->instaService->getLast12Posts()
         ]);
@@ -190,7 +190,7 @@ class DefaultController extends AbstractController
      */
     public function mentions(): Response
     {
-        return $this->render('default/legal_mention.html.twig', [
+        return $this->render('default/annexes/legal_mention.html.twig', [
             'mentions' => $this->legalMentionRepository->findAll()
         ]);
     }
@@ -208,7 +208,7 @@ class DefaultController extends AbstractController
             $results = $this->tagRepository->findBy(['title' => $query]);
         }
 
-        return $this->render('default/result_search.html.twig', [
+        return $this->render('default/filter/result_search.html.twig', [
             'results' => $results,
         ]);
     }
