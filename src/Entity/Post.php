@@ -52,6 +52,17 @@ class Post
      */
     private $likes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Language::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $lang;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $readingTime;
+
     public function __construct()
     {
         $this->author = "Alice Pfeiffer";
@@ -174,5 +185,29 @@ class Post
             if($like->getIpClient() === $client) return true;
         }
         return false;
+    }
+
+    public function getLang(): ?Language
+    {
+        return $this->lang;
+    }
+
+    public function setLang(?Language $lang): self
+    {
+        $this->lang = $lang;
+
+        return $this;
+    }
+
+    public function getReadingTime(): ?int
+    {
+        return $this->readingTime;
+    }
+
+    public function setReadingTime(int $readingTime): self
+    {
+        $this->readingTime = $readingTime;
+
+        return $this;
     }
 }

@@ -83,6 +83,12 @@ class Article
      */
     private $magazine;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Language::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $lang;
+
     public function __construct()
     {
         $this->updatedAt = new \DateTime('now');
@@ -243,6 +249,18 @@ class Article
     public function setMagazine(?Press $magazine): self
     {
         $this->magazine = $magazine;
+
+        return $this;
+    }
+
+    public function getLang(): ?Language
+    {
+        return $this->lang;
+    }
+
+    public function setLang(?Language $lang): self
+    {
+        $this->lang = $lang;
 
         return $this;
     }
