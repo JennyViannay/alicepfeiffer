@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}- Follow Me{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% if insta.message %}
+    Api Instagram is not available
+    {% else %}
+    <div class="text-center">
+        {# <img src="{{insta.profile_pic_url_hd}}" alt="{{insta.username}} instagram profile picture" class="img-fluid avatar"> #}
+    </div>
+    <div class="jumbotron text-center">
+        <p>{{insta.biography|raw}}</p>
+        <p>Followers : {{insta.edge_followed_by.count}} - Following : {{insta.edge_follow.count}}</p>
+    </div>
+    {% if lastPosts.message %}
+    Api Instagram is not available
+    {% else %}
+    <div class="row">
+        {% for post in lastPosts.edges %}
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <img src="{{post.node.display_url}}" alt="@alicepfeiffer instagram post" class="img-fluid">
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endif %}
+    <div class="text-center my-5">
+        <a href="https://www.instagram.com/alicepfeiffer/?hl=en" target="_blank"
+            class="btn btn-block btn-social btn-instagram">
+            <span class="fa fa-instagram"></span>Continue to Instagram
+        </a>
+    </div>
+</div>
+{% endblock %}

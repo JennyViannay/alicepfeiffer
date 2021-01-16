@@ -1,0 +1,5 @@
+@media screen and (max-width: 420px) {
+    .inner {
+        font-size: 12px;
+    }
+}

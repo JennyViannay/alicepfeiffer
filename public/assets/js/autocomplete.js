@@ -13,7 +13,7 @@ const getTagsAutocomplete = async (query) => {
         .then(response => response.data)
         .then(data => {
             results = data
-            return results
+            return data
         }, [])
     createDataList(results)
 }

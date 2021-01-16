@@ -9,7 +9,7 @@
     </div>
     {% endfor %}
     <main role="main" class="inner cover text-center">
-        <h1 class="cover-heading">Alice Pfeiffer</h1>
+        <h2 class="cover-heading">Alice Pfeiffer</h2>
         <p class="lead">{{bio|raw}}</p>
         {% if bio.image %}
         <img src="{{ vich_uploader_asset(bio, 'imageFile') }}" class="img-fluid"

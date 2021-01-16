@@ -4,8 +4,19 @@
 
 {% block body %}
 <div class="container">
-    <h1>Articles by Alice Pfeiffer!</h1>
+    <div class="float-end">
+        <a href="{{path('app_articles')}}">All articles</a>
+        <div class="row">
+            <ul class="list-group">
+                {% for tag in tags %}
+                <li class="list-group-item"><a
+                        href="{{ path('app_articles', {'tag' : tag.title }) }}">#{{tag.title}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
     <div class="row">
+        {% if articles is not empty %}
         {% for article in articles %}
         {% if article.isVisible %}
         <div class="col-lg-4 col-md-6 col-sm-12">
@@ -17,20 +28,17 @@
                 <img src="{{article.imageLink}}" class="card-img-top" alt="{{article.imageAlt}}">
                 {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title"><a href="">{{article.title}}</a></h5>
+                    <h3 class="card-title"><a href="">{{article.title}}</a></h3>
                     <p class="card-text">
                         <small>
                             {% for tag in article.tags %}
-                            #{{tag.title}}
+                            <a href="{{ path('app_articles', {'tag' : tag.title }) }}">#{{tag.title}}</a>
                             {% endfor %}
                         </small>
                     </p>
                     <div class="row">
-                        <div 
-                        class="fb-share-button" 
-                        data-href="https://developers.facebook.com/docs/plugins/"
-                        data-layout="button_count" 
-                        data-size="small">
+                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"
+                            data-layout="button_count" data-size="small">
                             <a target="_blank"
                                 href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
                                 class="fb-xfbml-parse-ignore">
@@ -43,6 +51,9 @@
         </div>
         {% endif %}
         {% endfor %}
+        {% else %}
+        No result found
+        {% endif %}
     </div>
 </div>
 {% endblock %}

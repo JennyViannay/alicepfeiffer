@@ -2,31 +2,28 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Contact;
+use App\Entity\LegalMention;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class ContactCrudController extends AbstractCrudController
+class LegalMentionCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Contact::class;
+        return LegalMention::class;
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id')->onlyOnIndex(),
-            TextField::new('email', 'Email'),
-            TextField::new('subject', 'Subject'),
-            TextEditorField::new('message', 'Message'),
-            DateTimeField::new('createdAt', 'Receved On')
+            TextField::new('title'),
+            TextEditorField::new('content'),
         ];
     }
 
@@ -35,15 +32,14 @@ class ContactCrudController extends AbstractCrudController
         return 
         $actions
         ->add(Crud::PAGE_INDEX, 'detail')
-        ->remove(Crud::PAGE_INDEX, 'new')
-        ->remove(Crud::PAGE_INDEX, 'edit')
-        ->remove(Crud::PAGE_DETAIL, 'edit')
-        ->update(Crud::PAGE_INDEX, Action::DETAIL, function (Action $action) {
-            return $action->setIcon('fa fa-eye')->setLabel(false);
-        })
         ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
             return $action->setIcon('fa fa-trash')->setLabel(false);
+        })
+        ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
+            return $action->setIcon('fa fa-pen')->setLabel(false);
+        })
+        ->update(Crud::PAGE_INDEX, Action::DETAIL, function (Action $action) {
+            return $action->setIcon('fa fa-eye')->setLabel(false);
         });
     }
-
 }

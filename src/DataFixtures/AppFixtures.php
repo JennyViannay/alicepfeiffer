@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Bio;
 use App\Entity\Book;
 use App\Entity\Media;
+use App\Entity\Post;
 use App\Entity\Press;
 use App\Entity\SocialMedia;
 use App\Entity\Tag;
@@ -13,7 +14,6 @@ use App\Entity\User;
 use App\Service\SlugifyService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
@@ -29,7 +29,7 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create();
+        $faker = \Faker\Factory::create();
 
         $user = new User();
         $password = $this->encoder->encodePassword($user, 'password');
@@ -59,6 +59,34 @@ class AppFixtures extends Fixture
             $tags[] = $tag;
         }
 
+        // Fixtures posts
+        for($i = 0; $i < 5; $i++){
+            $post = new Post();
+            $post->setTitle($faker->catchPhrase())
+            ->setContent($faker->paragraph(1000))
+            ->setSlug($this->slugifyService->slugify($post->getTitle()))
+            ->addTag($tags[0])
+            ->addTag($tags[1])
+            ->addTag($tags[2]);
+            $manager->persist($post);
+        }
+
+        // Fixtures press
+        $magazines = [];
+        for($i = 0; $i < 2; $i++){
+            $press = new Press();
+            $press->setMagazine($faker->word)
+            ->setLink($faker->url)
+            ->setImageLink('https://ibb.co/4gXW7TL')
+            ->setImage('5ff8396a4d1b7193122451.png')
+            ->addTag($tags[0])
+            ->addTag($tags[2])
+            ->addTag($tags[3])
+            ->setImageAlt('Image description');
+            $manager->persist($press);
+            $magazines[] = $press;
+        }
+
         // Fixtures articles
         for($i = 0; $i < 5; $i++){
             $article = new Article();
@@ -68,6 +96,7 @@ class AppFixtures extends Fixture
             ->setImage('5ff8396a4d1b7193122451.png')
             ->setImageAlt('Image description')
             ->setSlug($this->slugifyService->slugify($article->getTitle()))
+            ->setMagazine($faker->randomElement($magazines))
             ->addTag($tags[0])
             ->addTag($tags[1])
             ->addTag($tags[2]);
@@ -88,19 +117,6 @@ class AppFixtures extends Fixture
             ->setImageAlt('Image description')
             ->setSlug($this->slugifyService->slugify($book->getTitle()));
             $manager->persist($book);
-        }
-        // Fixtures press
-        for($i = 0; $i < 5; $i++){
-            $press = new Press();
-            $press->setMagazine($faker->word)
-            ->setLink($faker->url)
-            ->setImageLink('https://ibb.co/4gXW7TL')
-            ->setImage('5ff8396a4d1b7193122451.png')
-            ->addTag($tags[0])
-            ->addTag($tags[2])
-            ->addTag($tags[3])
-            ->setImageAlt('Image description');
-            $manager->persist($press);
         }
 
         for($i = 0; $i < 5; $i++){

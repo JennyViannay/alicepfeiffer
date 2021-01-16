@@ -19,10 +19,11 @@ class SocialMediaCrudController extends AbstractCrudController
     {
         return 
         $actions
-        ->remove(Crud::PAGE_INDEX, 'new')
-        ->remove(Crud::PAGE_INDEX, 'delete')
         ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
             return $action->setIcon('fa fa-pen')->setLabel(false);
+        })
+        ->update(Crud::PAGE_INDEX, Action::DELETE, function (Action $action) {
+            return $action->setIcon('fa fa-trash')->setLabel(false);
         });
     }
 }
