@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Article;
 use App\Entity\Bio;
 use App\Entity\Book;
+use App\Entity\Language;
 use App\Entity\Media;
 use App\Entity\Post;
 use App\Entity\Press;
@@ -38,11 +39,13 @@ class AppFixtures extends Fixture
         ->setPassword($password);
         $manager->persist($user);
 
+        // Fixtures BIO
         $bio = new Bio();
         $bio->setContent('Alice Pfeiffer, franco-britannique, est journaliste de mode. Collaboratrice notamment pour The Guardian, Vogue International et les Inrocks, elle est également titulaire d’un master en Gender Studies à la London School of Economics. Je ne suis pas Parisienne est son premier livre.')
         ->setImageLink('https://static.lexpress.fr/medias_11465/w_1365,h_764,c_crop,x_0,y_353/w_480,h_270,c_fill,g_north/v1493383606/alice-pfeiffer_5870377.jpg');
         $manager->persist($bio);
 
+        // Fixtures Social Media
         $facebook = new SocialMedia();
         $facebook->setName('facebook')->setLink('https://www.facebook.com/public/Alice-Pfeiffer');
         $manager->persist($facebook);
@@ -50,6 +53,15 @@ class AppFixtures extends Fixture
         $insta = new SocialMedia();
         $insta->setName('instagram')->setLink('https://www.instagram.com/alicepfeiffer/?hl=en');
         $manager->persist($insta);
+
+        // Fictures lang
+        $fr = new Language();
+        $fr->setLang('fr');
+        $manager->persist($fr);
+
+        $en = new Language();
+        $en->setLang('en');
+        $manager->persist($en);
 
         $tags = [];
         for ($i = 0; $i < 5; $i++) {
@@ -67,7 +79,9 @@ class AppFixtures extends Fixture
             ->setSlug($this->slugifyService->slugify($post->getTitle()))
             ->addTag($tags[0])
             ->addTag($tags[1])
-            ->addTag($tags[2]);
+            ->addTag($tags[2])
+            ->setLang($fr)
+            ->setReadingTime(10);
             $manager->persist($post);
         }
 
@@ -99,7 +113,8 @@ class AppFixtures extends Fixture
             ->setMagazine($faker->randomElement($magazines))
             ->addTag($tags[0])
             ->addTag($tags[1])
-            ->addTag($tags[2]);
+            ->addTag($tags[2])
+            ->setLang($fr);
             $manager->persist($article);
         }
 
