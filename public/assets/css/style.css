@@ -11,7 +11,7 @@ footer {
     background-color: white;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     font-family: 'Oswald', sans-serif;
 }
 
@@ -19,12 +19,8 @@ h1 {
     font-weight: 500;
 }
 
-h2 {
+h2, h3, h4 {
     font-weight: 400;
-}
-
-h3 {
-    font-weight: 300;
 }
 
 p {
@@ -43,6 +39,24 @@ a:hover {
     text-decoration: none;
 }
 
+/* NAVBAR */
+.alice-brand {
+    text-transform: uppercase;
+    font-size: 85px;
+}
+
+ul li a {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 200;
+    font-size: 25px;
+}
+
+/* HOME */
+.bio-col {
+    display: block;
+    position:sticky;
+    top:20px;
+}
 .avatar {
     border-radius: 50%;
     width: 250px;
@@ -68,24 +82,12 @@ a:hover {
 .line-black{
     border-top: 1px solid rgb(0, 0, 0);
 }
-
-/* NAVBAR */
-.alice-brand {
+.title-tag {
+    color: var(--framboise);
     text-transform: uppercase;
-    font-size: 85px;
 }
-
-ul li a {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 200;
-    font-size: 25px;
-}
-
-/* HOME */
-.bio-col {
-    display: block;
-    position:sticky;
-    top:20px;
+.group-title-rectangle {
+    padding-left: 50px;
 }
 
 
