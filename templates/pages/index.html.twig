@@ -16,31 +16,42 @@
     </div>
 </div>
 <div class="container-fluid mt-5">
-    <main role="main" class="inner cover text-center">
+    <main role="main" class="inner cover">
         <div class="row">
-            <div class="col-lg-3 col-md-5 col-sm-12">
-                <div class="bio-col">
-                    {% if bio.image %}
-                    <img src="{{ vich_uploader_asset(bio, 'imageFile') }}" class="img-fluid" alt="{{bio.imageAlt}}">
-                    {% else %}
-                    <img src="{{bio.imageLink}}" alt="Alice Pfeiffer portrait" class="img-fluid">
-                    {% endif %}
-                    <h4 class="cover-heading">Bio</h4>
-                    <p class="lead">{{bio|raw}}</p>
-                    <p class="lead my-4">
-                        <a href="#" class="btn btn-lg btn-secondary">Learn more</a>
+            <div class="col-lg-3 col-md-3 col-sm-12 mx-auto">
+                <div class="bio-col p-3">
+                    <div class="avatar mx-auto">
+                        {% if bio.image %}
+                        <img src="{{ vich_uploader_asset(bio, 'imageFile') }}" class="profile" alt="{{bio.imageAlt}}">
+                        {% else %}
+                        <img src="{{bio.imageLink}}" alt="Alice Pfeiffer portrait" class="profile">
+                        {% endif %}
+                    </div>
+                    <p><i class="fab fa-instagram color-framboise"></i></p>
+                    <h4 class="color-framboise text-left">Bio</h4>
+                    <p class="text-left">{{bio|raw}}</p>
+                    <p class="pt-4">
+                        <a href="{{path('app_contact')}}" class="btn-neutral">CONTACT</a>
                     </p>
                 </div>
             </div>
-            <div class="col-lg-7 col-md-7 col-sm-12">
+            <div class="col-xl-9 col-lg-8 col-md-7 col-sm-12 line-black">
                 <div class="row">
-                    {% for post in posts %}
-                    <div class="col-lg-6">
 
+                    <div class="col-auto pl-5">
+    
+                        <h2 class="title-rectangle">Derniers posts publiés</h2>
+    
+                    </div>
+                    
+                </div>
+                <div class="row ml-5">
+                    {% for post in posts %}
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-10">
                         <div class="card">
                             <img class="card-img-top"
                                 src="https://i.postimg.cc/nVdHhGs1/clem-onojeghuo-Hp-EDSZuk-Jqk-unsplash.jpg"
-                                alt="Card image cap">
+                                alt="{{post.title}}">
                             <div class="card-body">
                                 <h4 class="card-title"></h4>
                                 <h3 class="card-text">{{post.title}}</h3>

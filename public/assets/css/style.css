@@ -30,6 +30,7 @@ h3 {
 p {
     font-family: futura-pt, sans-serif, 'Raleway', sans-serif;
     font-weight: 300;
+    font-size: 20px;
 }
 
 a {
@@ -44,6 +45,28 @@ a:hover {
 
 .avatar {
     border-radius: 50%;
+    width: 250px;
+    height: 250px;
+}
+
+.profile {
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    object-fit: cover;
+}
+.btn-neutral{
+    border: 1px solid rgb(0, 0, 0);
+    background-color: transparent;
+    padding: 15px;
+}
+.title-rectangle {
+    border-top: 4px solid rgb(0, 0, 0);
+    line-height: 64px;
+    border-top-width: 10px;
+}
+.line-black{
+    border-top: 1px solid rgb(0, 0, 0);
 }
 
 /* NAVBAR */
