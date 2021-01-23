@@ -1,0 +1,54 @@
+<div class="container p-3">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand alice-brand" href="{{path('home')}}">
+                <h1>Alice
+                    {% if app.request.get('_route') == 'app_posts' or app.request.get('_route') == 'app_post'%}
+                    's posts
+                    {% elseif app.request.get('_route') == 'app_articles' %}
+                    's articles
+                    {% elseif app.request.get('_route') == 'app_press' %}
+                    's press
+                    {% elseif app.request.get('_route') == 'app_books' %}
+                    's books
+                    {% elseif app.request.get('_route') == 'app_medias' %}
+                    's medias
+                    {% elseif app.request.get('_route') == 'app_contact' %}
+                    Pfeiffer
+                    {% elseif app.request.get('_route') == 'app_follow_me' %}
+                    's Insta
+                    {% else %}
+                    Pfeiffer
+                    {% endif %}
+                </h1>
+            </a>
+            <ul class="nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link {{app.request.get('_route') == 'app_posts' ? 'active' : ''}}"
+                        href="{{path('app_posts')}}">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{app.request.get('_route') == 'app_press' ? 'active' : ''}}"
+                        href="{{path('app_press')}}">Magazine</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{app.request.get('_route') == 'app_books' ? 'active' : ''}}"
+                        href="{{path('app_books')}}">Shop</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link {{app.request.get('_route') == 'app_medias' ? 'active' : ''}}"
+                        href="{{path('app_medias')}}">Medias</a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link {{app.request.get('_route') == 'app_contact' ? 'active' : ''}}"
+                        href="{{path('app_contact')}}">Contact</a>
+                </li>
+                <form class=" nav-link form-style d-flex" method="GET" action="{{ path('app_search') }}">
+                    <input class="form-control nav-form-size" type="search" id="search_input" name="q" placeholder="Search">
+                    <datalist id="datalistOptions"></datalist>
+                    <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </ul>
+        </div>
+    </nav>
+</div>
