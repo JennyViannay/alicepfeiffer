@@ -59,10 +59,13 @@ ul li a {
 }
 .avatar {
     border-radius: 50%;
-    width: 250px;
-    height: 250px;
+    width: 190px;
+    height: 190px;
 }
-
+.insta-bio {
+    font-weight: 400;
+    font-size: 20px;
+}
 .profile {
     width: inherit;
     height: inherit;
@@ -72,7 +75,9 @@ ul li a {
 .btn-neutral{
     border: 1px solid rgb(0, 0, 0);
     background-color: transparent;
-    padding: 15px;
+    padding: 10px;
+    padding-right: 30px;
+    padding-left: 30px;
 }
 .title-rectangle {
     border-top: 4px solid rgb(0, 0, 0);
@@ -85,11 +90,27 @@ ul li a {
 .title-tag {
     color: var(--framboise);
     text-transform: uppercase;
+    font-weight: 400;
+    font-family: 'Oswald', sans-serif;
+    font-size: 24px;
 }
 .group-title-rectangle {
     padding-left: 50px;
 }
-
+.bg-whitesmoke {
+    background-color: whitesmoke;
+}
+#scroll-section {
+    height:100%;
+    width:100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+    display:inline-block;
+    white-space:nowrap;
+}
+.card-scrolled {
+    display:inline-block;
+}
 
 /* FOOTER */
 .alice-footer {
@@ -101,4 +122,8 @@ ul li a {
 
 .color-framboise {
     color: var(--framboise);
+}
+
+.size-text-footer {
+    font-size: 17px;
 }

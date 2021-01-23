@@ -15,11 +15,11 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
     </div>
 </div>
-<div class="container-fluid mt-5 mb-5">
+<div class="container-fluid mt-5">
     <main role="main" class="inner cover">
         <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-12">
-                <div class="bio-col p-5">
+                <div class="bio-col">
                     <div class="avatar mx-auto mb-4">
                         {% if bio.image %}
                         <img src="{{ vich_uploader_asset(bio, 'imageFile') }}" class="profile" alt="{{bio.imageAlt}}">
@@ -27,22 +27,24 @@
                         <img src="{{bio.imageLink}}" alt="Alice Pfeiffer portrait" class="profile">
                         {% endif %}
                     </div>
-                    <div class="row">
+                    <div class="row text-center mx-5">
                         <div class="col-auto">
-                            <p>24k Followers</p>
+                            <p class="insta-bio">24k Followers</p>
                         </div>
                         <div class="col-auto">
                             <p><i class="fab fa-instagram color-framboise"></i></p>
                         </div>
                         <div class="col-auto">
-                            <p>4000 Following</p>
+                            <p class="insta-bio">4000 Following</p>
                         </div>
                     </div>
-                    <h4 class="color-framboise text-left">Bio</h4>
-                    <p class="text-left">{{bio|raw}}</p>
-                    <p class="pt-4 text-center contact-design">
-                        <a href="{{path('app_contact')}}" class="btn-neutral">CONTACT</a>
-                    </p>
+                    <div class="row text-left mx-5">
+                        <h4 class="title-tag">Bio</h4>
+                        <p>{{bio|raw}}</p>
+                        <p class="pt-4 text-center contact-design">
+                            <a href="{{path('app_contact')}}" class="btn-neutral insta-bio">Contact</a>
+                        </p>
+                    </div>
                 </div>
             </div>
             <div class="col-xl-9 col-lg-7 col-md-6 col-sm-12 line-black">
@@ -52,33 +54,60 @@
                     </div>
                 </div>
                 <div class="row ml-5">
-                    {% for post in posts %}
+                    {% for post in posts|reverse %}
+                    {% if post.isVisible %}
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-10">
-                        <div class="m-5">
-                            <img class="card-img-top"
-                                src="https://i.postimg.cc/nVdHhGs1/clem-onojeghuo-Hp-EDSZuk-Jqk-unsplash.jpg"
-                                alt="{{post.title}}">
+                        <div class="m-lg-5 m-md-0">
+                            <a href="{{path('app_post', {'slug' : post.slug })}}">
+                                <img class="card-img-top"
+                                    src="https://i.postimg.cc/nVdHhGs1/clem-onojeghuo-Hp-EDSZuk-Jqk-unsplash.jpg"
+                                    alt="{{post.title}}">
+                            </a>
                             <div>
                                 <div class="row">
                                     {% for tag in post.tags|slice(0, 2) %}
-                                   
                                     <div class="col-auto">
-                                        <h4 class="card-title title-tag">{{tag.title}}</h4>
+                                        <p class="card-title title-tag">{{tag.title}}</p>
                                     </div>
-                                   
                                     {% endfor %}
                                 </div>
                                 <a href="{{path('app_post', {'slug' : post.slug })}}">
-                                <h3 class="card-text">{{post.title}}</h3>
+                                    <h3 class="card-text">{{post.title}}</h3>
                                 </a>
-                                <p>Alice P. </p>
+                                <p class="pt-3 text-">Alice P. <span class="text-muted">{{post.createdAt|date("d M
+                                        Y")}}</span></p>
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
         </div>
     </main>
 </div>
+{% if presses is not empty %}
+<div class="container-fluid bg-whitesmoke mb-5 mt-5">
+    <div class="row">
+        <div class="col-auto group-title-rectangle">
+            <h2 class="title-rectangle">PRESS</h2>
+        </div>
+    </div>
+    <div class="row" id="scroll-section">
+        {% for press in presses %}
+        {% if press.isVisible %}
+        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-3 card-scrolled">
+            <div class="m-2">
+                {% if press.image %}
+                <img src="{{ vich_uploader_asset(press, 'imageFile') }}" class="card-img-top" alt="{{press.imageAlt}}">
+                {% else %}
+                <img src="{{press.imageLink}}" class="card-img-top" alt="{{press.imageAlt}}">
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
 {% endblock %}
