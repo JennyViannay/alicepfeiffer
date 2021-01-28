@@ -65,6 +65,7 @@ class PageController extends AbstractController
         return $this->render('pages/index.html.twig', [
             'bio' => $this->bioRepository->findAll()[0],
             'articles' => $this->articleRepository->findAll(),
+            'posts' => $this->postRepository->findAll(),
             'presses' => $this->pressRepository->findAll(),
             'books' => $this->bookRepository->findAll()
         ]);
