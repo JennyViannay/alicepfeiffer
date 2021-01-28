@@ -3,28 +3,42 @@
 {% block title %}- Contact{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h2 class="my-4 text-center">Let me a message</h2>
-    <div id="flash_message" class="alert alert-danger d-none"></div>
-    {{ form_start(form, {'attr': {'id': 'form-contact'}}) }}
-    <div class="my-2">
-        <label for="email" class="form-label">Email *</label>
-        {{ form_widget(form.email) }}
+<div class="container mt-5">
+    <div class="row my-4">
+        <div class="col-lg-4">
+            <img src="https://i.postimg.cc/76FrgD3S/nathan-dumlao-v-Ki-Xuwn-E6w-U-unsplash.jpg">
+        </div>
+        <div class="col-lg-7 my-auto mb-5">
+            <div class="jumbotron bg-color-contact p-5">
+                <h1 class="my-4 text-center">CONTACT</h1>
+                <div id="flash_message" class="alert alert-danger d-none"></div>
+                {{ form_start(form, {'attr': {'id': 'form-contact'}}) }}
+                <div class="row">
+                    <div class="col-6">
+                        <div class="my-2">
+                            {{ form_widget(form.email) }}
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="my-2">
+                            {{ form_widget(form.subject) }}
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="my-3">
+                            {{ form_widget(form.message) }}
+                        </div>
+                    </div>
+                </div>
+                <input type="text" name="token" id="input-token" value="" class="d-none">
+                <div class="text-center my-4">
+                    <button class="btn framboise-btn" type="submit" id="submit-contact"
+                        data-sitekey="6LfJMCQaAAAAAJfXuLTH8XpIyUbYJiFE52pMX4hO">{{ button_label|default('Envoyer') }}</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
     </div>
-    <div class="my-2">
-        <label for="subject" class="form-label">Subject *</label>
-        {{ form_widget(form.subject) }}
-    </div>
-    <div class="my-3">
-        <label for="message" class="form-label">Message *</label>
-        {{ form_widget(form.message) }}
-    </div>
-    <input type="text" name="token" id="input-token" value="" class="d-none">
-    <div class="text-center my-4">
-        <button class="btn btn-primary" type="submit" id="submit-contact"
-            data-sitekey="6LfJMCQaAAAAAJfXuLTH8XpIyUbYJiFE52pMX4hO">{{ button_label|default('Send') }}</button>
-    </div>
-    {{ form_end(form) }}
 </div>
 {% endblock %}
 

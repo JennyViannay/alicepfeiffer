@@ -52,7 +52,7 @@ ul li a {
 }
 
 /* HOME */
-.bio-col {
+.sticky-col {
     display: block;
     position:sticky;
     top:20px;
@@ -126,4 +126,35 @@ ul li a {
 
 .size-text-footer {
     font-size: 17px;
+}
+
+/* ALL MAGAZINES */
+.filters-btn {
+    background-color: transparent;
+    color: var(--framboise);
+    border: 1px solid var(--framboise);
+    border-radius: 16px 16px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.filters-btn p{
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+/* CONTACT */
+.bg-color-contact {
+    background-color: white;
+}
+.framboise-btn {
+    background-color: var(--framboise);
+    border: 1px solid var(--framboise);
+    color: white;
+}
+.framboise-btn:hover {
+    background-color: transparent;
+    border: 1px solid var(--framboise);
+    color: var(--framboise);
 }
