@@ -5,7 +5,7 @@ document.getElementById('form-contact').addEventListener('submit', e => {
     grecaptcha.ready(() => {
         grecaptcha.execute('6LfJMCQaAAAAAJfXuLTH8XpIyUbYJiFE52pMX4hO', { action: 'submit' }).then((token) => {
             console.log(token)
-            axios.post('https://localhost:8000/captchaverify', token)
+            axios.post('ajax/captchaverify', token)
             .then(response => {
                 if (response.data === true) {
                     document.getElementById('input-token').value = token
