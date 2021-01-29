@@ -56,6 +56,7 @@ class Bio
     public function __construct()
     {
         $this->updatedAt = new \DateTime('now');
+        $this->imageAlt = 'Alice Pfeiffer photo profile';
     }
 
     public function __toString()
