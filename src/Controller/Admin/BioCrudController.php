@@ -28,9 +28,7 @@ class BioCrudController extends AbstractCrudController
 
         if ($pageName == Crud::PAGE_NEW || $pageName == Crud::PAGE_EDIT) {
             $imageFile = TextField::new('imageFile')->setFormType(VichImageType::class)->setLabel('Cover File')->onlyOnForms();
-            $imageAlt = TextField::new('imageAlt', 'Image description improve SEO');
             array_push($fields, $imageFile);
-            array_push($fields, $imageAlt);
         } 
 
         if ($pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL) {

@@ -47,7 +47,6 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         }
         if (
             $entity instanceof Article
-            || $entity instanceof Bio
             || $entity instanceof Book
             || $entity instanceof Press
         ) {
@@ -71,7 +70,6 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         }
         if (
             $entity instanceof Article
-            || $entity instanceof Bio
             || $entity instanceof Book
             || $entity instanceof Press
         ) {
