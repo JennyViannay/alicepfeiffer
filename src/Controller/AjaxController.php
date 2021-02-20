@@ -13,6 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\SocialMediaRepository;
 use App\Repository\TagRepository;
 
+/**
+ * @Route("/ajax")
+ */
 class AjaxController extends AbstractController
 {
     /**
@@ -59,7 +62,7 @@ class AjaxController extends AbstractController
         $response = curl_exec($ch);
         curl_close($ch);
         $data = json_decode($response);
-        
+
         return $this->json($data->success, 200);
     }
 
@@ -71,22 +74,22 @@ class AjaxController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $ipClient = $request->getClientIp();
 
-        if(!$ipClient){
-            return $this->json(['message' => 'Unauthorized'], 403 );
+        if (!$ipClient) {
+            return $this->json(['message' => 'Unauthorized'], 403);
         }
 
-        if($post->isLikedByClient($ipClient)){
+        if ($post->isLikedByClient($ipClient)) {
             $like = $postLikeRepository->findOneBy(['post' => $post, 'ipClient' => $ipClient]);
             $em->remove($like);
             $em->flush();
-            return $this->json(['message' => 'Unliked', 'likes' => $postLikeRepository->count(['post' => $post])], 200 );
+            return $this->json(['message' => 'Unliked', 'likes' => $postLikeRepository->count(['post' => $post])], 200);
         }
-        
+
         $like = new PostLike();
         $like->setPost($post)->setIpClient($ipClient);
         $em->persist($like);
         $em->flush();
 
-        return $this->json(['message' => 'Liked', 'likes' => $postLikeRepository->count(['post' => $post])], 200 );
+        return $this->json(['message' => 'Liked', 'likes' => $postLikeRepository->count(['post' => $post])], 200);
     }
 }

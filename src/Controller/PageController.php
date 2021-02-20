@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Entity\Post;
+use App\Entity\Press;
 use App\Form\ContactType;
 use App\Repository\ArticleRepository;
 use App\Repository\BioRepository;
@@ -163,19 +164,22 @@ class PageController extends AbstractController
     }
 
     /**
-     * @Route("/press/{tag}", name="app_press", methods={"GET"})
+     * @Route("/press", name="app_press", methods={"GET"})
      */
-    public function press(string $tag = null): Response
+    public function press(): Response
     {
-        $presses = $this->pressRepository->findAll();
-        $byTag = [];
-        if ($tag) {
-            $tag = $this->tagRepository->findOneBy(["title" => $tag]);
-            $byTag = $tag->getArticles();
-        }
         return $this->render('pages/press/press.html.twig', [
-            'presses' => $byTag ? $byTag : $presses,
-            'tags' => $this->tagRepository->findAll()
+            'presses' => $this->pressRepository->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("/press/{slug}", name="app_press_show", methods={"GET"})
+     */
+    public function showPress(Press $press): Response
+    {
+        return $this->render('pages/press/show_press.html.twig', [
+            'press' => $press
         ]);
     }
 

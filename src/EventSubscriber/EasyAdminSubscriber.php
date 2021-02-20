@@ -45,13 +45,17 @@ class EasyAdminSubscriber implements EventSubscriberInterface
                     $entity->setEmbedVideo($finalString);
             }
         }
+        if ($entity instanceof Press) {
+            $slug = $this->slugger->slugify($entity->getMagazine());
+            $entity->setSlug($slug);
+        }
         if (
             $entity instanceof Article
             || $entity instanceof Book
             || $entity instanceof Press
         ) {
             if (empty($entity->getImageAlt())) {
-                $entity->setImageAlt('Alice Pfeiffer - '.$entity->getTitle());
+                $entity->setImageAlt('Alice Pfeiffer');
             }
             if (empty($entity->getImageFile()) && empty($entity->getImageLink())) {
                 $entity->setImageLink('https://static.lexpress.fr/medias_11465/w_1365,h_764,c_crop,x_0,y_353/w_480,h_270,c_fill,g_north/v1493383606/alice-pfeiffer_5870377.jpg');
@@ -66,6 +70,10 @@ class EasyAdminSubscriber implements EventSubscriberInterface
 
         if ($entity instanceof Article || $entity instanceof Book || $entity instanceof Media || $entity instanceOf Post) {
             $slug = $this->slugger->slugify($entity->getTitle());
+            $entity->setSlug($slug);
+        }
+        if ($entity instanceof Press) {
+            $slug = $this->slugger->slugify($entity->getMagazine());
             $entity->setSlug($slug);
         }
         if (

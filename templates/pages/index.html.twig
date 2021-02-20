@@ -15,7 +15,7 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
     </div>
 </div>
-<div class="container-fluid mt-5">
+<div class="container-fluid mt-5 pt-5">
     <main role="main" class="inner cover">
         <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-12">
@@ -28,13 +28,13 @@
                         {% endif %}
                     </div>
                     <div class="row text-center mx-5">
-                        <div class="col-auto">
+                        <div class="col-5">
                             <p class="insta-bio">24k Followers</p>
                         </div>
                         <div class="col-auto">
                             <p><i class="fab fa-instagram color-framboise"></i></p>
                         </div>
-                        <div class="col-auto">
+                        <div class="col-5">
                             <p class="insta-bio">4000 Following</p>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
     <div class="row" id="scroll-section">
         {% for press in presses %}
         {% if press.isVisible %}
-        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-3 card-scrolled">
+        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-3 col-xs-3 card-scrolled">
             <div class="m-2">
                 {% if press.image %}
                 <img src="{{ vich_uploader_asset(press, 'imageFile') }}" class="card-img-top" alt="{{press.imageAlt}}">

@@ -158,3 +158,9 @@ ul li a {
     border: 1px solid var(--framboise);
     color: var(--framboise);
 }
+
+/* show magazine */
+.lang-design {
+    text-transform: uppercase;
+    text-align: right;
+}
