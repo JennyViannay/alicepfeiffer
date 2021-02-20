@@ -20,7 +20,7 @@
         <div class="col-lg-10 col-md-10 col-sm-12 line-black mx-auto">
             <div class="row">
                 <div class="col-auto group-title-rectangle">
-                    <h2 class="title-rectangle">{{press.magazine}} </h2>
+                    <h1 class="title-rectangle">{{press.magazine}} </h1>
                 </div>
             </div>
             <div class="row">
@@ -30,10 +30,10 @@
                     <div class="card border-light p-2">
                         <a href="{{article.link}}" target="_blank">
                             {% if article.image %}
-                            <img src="{{ vich_uploader_asset(article, 'imageFile') }}" class="card-img-top"
+                            <img src="{{ vich_uploader_asset(article, 'imageFile') }}" class="card-img-top size-img-press"
                                 alt="{{article.imageAlt}}">
                             {% else %}
-                            <img src="{{article.imageLink}}" class="card-img-top" alt="{{article.imageAlt}}">
+                            <img src="{{article.imageLink}}" class="card-img-top size-img-press" alt="{{article.imageAlt}}">
                             {% endif %}
                             <div class="card-body">
                                 <div class="row">
@@ -43,7 +43,7 @@
                                     </div>
                                     {% endfor %}
                                 </div>
-                                <h4 class="card-title ">{{article.title}}</h4>
+                                <h2 class="press-title">{{article.title}}</h2>
                                 <p class="text-muted lang-design">{{article.lang}}</span></p>
                             </div>
                         </a>

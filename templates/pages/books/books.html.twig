@@ -12,7 +12,7 @@
                 <img src="{{ vich_uploader_asset(book, 'imageFile') }}" class="card-img-top" alt="{{book.imageAlt}}">
             </div>
             <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12 line-black">
-                <h2 class="title-book">{{book.title}}</h2>
+                <h1 class="title-book pb-2">{{book.title}}</h1>
                 <p>It is a long established fact that a reader will be distracted by the readable content of a page when
                     looking at its layout.
                     The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as
@@ -23,7 +23,7 @@
                     Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected
                     humour and the like).</p>
                 <div class="text-right">
-                    <p class="text-muted">Published On {{book.publishedAt|date('m-Y')}}</p>
+                    <p class="text-muted">Publié le {{book.publishedAt|date('d M Y')}}</p>
                     <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"
                         data-layout="button_count" data-size="small">
                         <a target="_blank"

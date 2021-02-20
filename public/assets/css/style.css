@@ -51,6 +51,22 @@ ul li a {
     font-size: 25px;
 }
 
+.transparent-input {
+    border: 0;
+    box-shadow: none;
+}
+
+.form-control:focus{
+    border-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.border-black {
+    border-bottom: 1px solid black;
+    margin-left: 50px;
+}
+
 /* HOME */
 .sticky-col {
     display: block;
@@ -164,4 +180,9 @@ ul li a {
 .lang-design {
     text-transform: uppercase;
     text-align: right;
+}
+
+.press-title {
+    font-weight: 400;
+    font-size: 25px;
 }

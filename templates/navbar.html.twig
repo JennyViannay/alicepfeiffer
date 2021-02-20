@@ -22,15 +22,17 @@
                     <a class="nav-link {{app.request.get('_route') == 'app_medias' ? 'active' : ''}}"
                         href="{{path('app_medias')}}">Medias</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{app.request.get('_route') == 'app_contact' ? 'active' : ''}}"
-                        href="{{path('app_contact')}}">Contact</a>
+                <li class="nav-item d-sm-block d-none">
+                        <a class="nav-link {{app.request.get('_route') == 'app_contact' ? 'active' : ''}}"
+                            href="{{path('app_contact')}}">Contact</a>
                 </li>
-                <form class=" nav-link form-style d-flex" method="GET" action="{{ path('app_search') }}">
-                    <input class="form-control nav-form-size" type="search" id="search_input" name="q" placeholder="Search">
-                    <datalist id="datalistOptions"></datalist>
-                    <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-                </form>
+                <li class="ml-5 mx-auto">
+                    <form class="nav-item border-black d-flex" method="GET" action="{{ path('app_search') }}">
+                        <input class="nav-link form-control transparent-input" name="q">
+                        <datalist id="datalistOptions"></datalist>
+                        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </li>
             </ul>
         </div>
     </nav>

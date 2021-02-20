@@ -137,23 +137,6 @@ class PageController extends AbstractController
     }
 
     /**
-     * @Route("/articles/{tag}", name="app_articles", methods={"GET"})
-     */
-    public function articles(string $tag = null): Response
-    {
-        $articles = $this->articleRepository->findAll();
-        $byTag = [];
-        if ($tag) {
-            $tag = $this->tagRepository->findOneBy(["title" => $tag]);
-            $byTag = $tag->getArticles();
-        }
-        return $this->render('pages/articles/articles.html.twig', [
-            'articles' => $byTag ? $byTag : $articles,
-            'tags' => $this->tagRepository->findAll()
-        ]);
-    }
-
-    /**
      * @Route("/books", name="app_books", methods={"GET"})
      */
     public function books(): Response
@@ -205,7 +188,7 @@ class PageController extends AbstractController
     }
 
     /**
-     * @Route("/legal-mentions", name="app_mentions", methods={"GET"})
+     * @Route("/mentions-legales", name="app_mentions", methods={"GET"})
      */
     public function mentions(): Response
     {
