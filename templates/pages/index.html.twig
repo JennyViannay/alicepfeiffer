@@ -98,11 +98,13 @@
         {% if press.isVisible %}
         <div class="col-xl-2 col-lg-2 col-md-4 col-sm-3 col-xs-3 card-scrolled">
             <div class="m-2">
+                <a href="{{path('app_press_show', {'slug' : press.slug })}}">
                 {% if press.image %}
                 <img src="{{ vich_uploader_asset(press, 'imageFile') }}" class="card-img-top" alt="{{press.imageAlt}}">
                 {% else %}
                 <img src="{{press.imageLink}}" class="card-img-top" alt="{{press.imageAlt}}">
                 {% endif %}
+                </a>
             </div>
         </div>
         {% endif %}

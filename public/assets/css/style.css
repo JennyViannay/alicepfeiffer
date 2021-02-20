@@ -83,6 +83,7 @@ ul li a {
     border-top: 4px solid rgb(0, 0, 0);
     line-height: 64px;
     border-top-width: 10px;
+    text-transform: uppercase;
 }
 .line-black{
     border-top: 1px solid rgb(0, 0, 0);
