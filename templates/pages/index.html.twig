@@ -18,7 +18,7 @@
 <div class="container-fluid mt-5 pt-5">
     <main role="main" class="inner cover">
         <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-12">
+            <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
                 <div class="sticky-col">
                     <div class="avatar mx-auto mb-4">
                         {% if bio.image %}
@@ -35,7 +35,7 @@
                             <p><i class="fab fa-instagram color-framboise"></i></p>
                         </div>
                         <div class="col-5">
-                            <p class="insta-bio">4000 Following</p>
+                            <p class="insta-bio">4k Following</p>
                         </div>
                     </div>
                     <div class="row text-left mx-5">
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-9 col-lg-7 col-md-6 col-sm-12 line-black">
+            <div class="col-xl-8 col-lg-7 col-md-6 col-sm-12 line-black mx-auto">
                 <div class="row">
                     <div class="col-auto group-title-rectangle">
                         <h2 class="title-rectangle">Derniers posts publiés</h2>
@@ -56,12 +56,12 @@
                 <div class="row ml-5">
                     {% for post in posts|reverse %}
                     {% if post.isVisible %}
-                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-10">
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-10">
                         <div class="m-lg-5 m-md-0">
                             <a href="{{path('app_post', {'slug' : post.slug })}}">
-                                <img class="card-img-top"
-                                    src="https://i.postimg.cc/nVdHhGs1/clem-onojeghuo-Hp-EDSZuk-Jqk-unsplash.jpg"
-                                    alt="{{post.title}}">
+                                {% if post.imageLink %}
+                                <img src="{{post.imageLink}}" class="card-img-top" alt="{{post.imageAlt}}">
+                                {% endif %}
                             </a>
                             <div>
                                 <div class="row">
@@ -74,7 +74,7 @@
                                 <a href="{{path('app_post', {'slug' : post.slug })}}">
                                     <h3 class="card-text">{{post.title}}</h3>
                                 </a>
-                                <p class="pt-3 text-">Alice P. <span class="text-muted">{{post.createdAt|date("d M
+                                <p class="pt-3">Alice P. <span class="text-muted">{{post.createdAt|date("d M
                                         Y")}}</span></p>
                             </div>
                         </div>
@@ -99,11 +99,12 @@
         <div class="col-xl-2 col-lg-2 col-md-4 col-sm-3 col-xs-3 card-scrolled">
             <div class="m-2">
                 <a href="{{path('app_press_show', {'slug' : press.slug })}}">
-                {% if press.image %}
-                <img src="{{ vich_uploader_asset(press, 'imageFile') }}" class="card-img-top" alt="{{press.imageAlt}}">
-                {% else %}
-                <img src="{{press.imageLink}}" class="card-img-top" alt="{{press.imageAlt}}">
-                {% endif %}
+                    {% if press.image %}
+                    <img src="{{ vich_uploader_asset(press, 'imageFile') }}" class="card-img-top"
+                        alt="{{press.imageAlt}}">
+                    {% else %}
+                    <img src="{{press.imageLink}}" class="card-img-top" alt="{{press.imageAlt}}">
+                    {% endif %}
                 </a>
             </div>
         </div>

@@ -30,10 +30,11 @@
                     <div class="card border-light p-2">
                         <a href="{{article.link}}" target="_blank">
                             {% if article.image %}
-                            <img src="{{ vich_uploader_asset(article, 'imageFile') }}" class="card-img-top size-img-press"
-                                alt="{{article.imageAlt}}">
+                            <img src="{{ vich_uploader_asset(article, 'imageFile') }}"
+                                class="card-img-top size-img-press" alt="{{article.imageAlt}}">
                             {% else %}
-                            <img src="{{article.imageLink}}" class="card-img-top size-img-press" alt="{{article.imageAlt}}">
+                            <img src="{{article.imageLink}}" class="card-img-top size-img-press"
+                                alt="{{article.imageAlt}}">
                             {% endif %}
                             <div class="card-body">
                                 <div class="row">

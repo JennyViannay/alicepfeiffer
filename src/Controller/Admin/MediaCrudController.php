@@ -30,6 +30,9 @@ class MediaCrudController extends AbstractCrudController
 
         if ($pageName == Crud::PAGE_NEW) {
             array_push($fields, TextField::new('title'));
+            array_push($fields, TextField::new('imageLink'));
+            array_push($fields, TextField::new('link'));
+            array_push($fields, TextField::new('imageAlt'));
             array_push($fields, TextField::new('embedVideo', 'Embed Link YouTube'));
         }
 

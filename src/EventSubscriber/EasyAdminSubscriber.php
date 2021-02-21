@@ -38,11 +38,13 @@ class EasyAdminSubscriber implements EventSubscriberInterface
             $slug = $this->slugger->slugify($entity->getTitle());
             $entity->setSlug($slug);
             if ($entity instanceof Media) {
+                if ($entity->getEmbedVideo()) {
                     $linkToEmbed = $entity->getEmbedVideo();
                     $first = explode(' ', $linkToEmbed);
                     $string = str_replace("src=\"", "", $first[3]);
                     $finalString = str_replace("\"", "", $string);
                     $entity->setEmbedVideo($finalString);
+                }
             }
         }
         if ($entity instanceof Press) {

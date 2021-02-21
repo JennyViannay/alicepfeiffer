@@ -63,6 +63,16 @@ class Post
      */
     private $readingTime;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageLink;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageAlt;
+
     public function __construct()
     {
         $this->author = "Alice Pfeiffer";
@@ -207,6 +217,30 @@ class Post
     public function setReadingTime(int $readingTime): self
     {
         $this->readingTime = $readingTime;
+
+        return $this;
+    }
+
+    public function getImageLink(): ?string
+    {
+        return $this->imageLink;
+    }
+
+    public function setImageLink(string $imageLink): self
+    {
+        $this->imageLink = $imageLink;
+
+        return $this;
+    }
+
+    public function getImageAlt(): ?string
+    {
+        return $this->imageAlt;
+    }
+
+    public function setImageAlt(string $imageAlt): self
+    {
+        $this->imageAlt = $imageAlt;
 
         return $this;
     }

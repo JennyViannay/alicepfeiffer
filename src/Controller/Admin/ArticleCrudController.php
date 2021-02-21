@@ -37,7 +37,7 @@ class ArticleCrudController extends AbstractCrudController
 
         if ($pageName == Crud::PAGE_NEW || $pageName == Crud::PAGE_EDIT) {
             $imageFile = TextField::new('imageFile')->setFormType(VichImageType::class)->onlyOnForms();
-            $imageAlt = TextField::new('imageAlt', 'Image description improve SEO');
+            $imageAlt = TextField::new('imageAlt', 'Description de l\'image pour un meilleur référencement');
             array_push($fields, $imageFile);
             array_push($fields, $imageAlt);
         }

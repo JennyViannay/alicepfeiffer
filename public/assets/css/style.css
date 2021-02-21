@@ -107,9 +107,9 @@ ul li a {
 .title-tag {
     color: var(--framboise);
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 300;
     font-family: 'Oswald', sans-serif;
-    font-size: 24px;
+    font-size: 21px;
 }
 .group-title-rectangle {
     padding-left: 50px;
@@ -152,12 +152,12 @@ ul li a {
     border: 1px solid var(--framboise);
     border-radius: 16px 16px;
     font-family: 'Oswald', sans-serif;
-    font-weight: 500;
+    font-weight: 400;
     text-transform: uppercase;
 }
 .filters-btn p{
     font-family: 'Oswald', sans-serif;
-    font-weight: 500;
+    font-weight: 400;
     text-transform: uppercase;
 }
 
@@ -185,4 +185,33 @@ ul li a {
 .press-title {
     font-weight: 400;
     font-size: 25px;
+}
+
+/* ARTICLES */
+.right-text {
+    text-align: right;
+}
+
+.post-pres{
+    background-color: white;
+    margin-top: -7rem;
+    padding: 0rem 2rem;
+    padding-right: 0rem;
+}
+
+.bg-white{
+    background-color: white;
+    position: relative;
+    padding: 15px;
+}
+
+.footer-section-article {
+    border-top: 1px solid var(--framboise);
+    border-top-width: 2px;
+}
+
+.small-text {
+    font-family: futura-pt, sans-serif, 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
 }
