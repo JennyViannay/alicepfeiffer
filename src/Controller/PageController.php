@@ -205,8 +205,10 @@ class PageController extends AbstractController
         $query = $request->query->get('q');
 
         $results = [];
+
         if (null !== $query) {
-            $results = $this->tagRepository->findBy(['title' => $query]);
+            $data = $this->tagRepository->findBy(['title' => $query]);
+            $results = $data ? $data[0] : "";
         }
 
         return $this->render('pages/filter/result_search.html.twig', [

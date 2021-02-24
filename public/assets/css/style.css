@@ -249,3 +249,16 @@ ul li a {
 .position-rs-post {
     margin-top: 8px;
 }
+
+.title-suggestion-post {
+    margin-top: -7rem;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 5rem;
+}
+
+.bg-black {
+    background-color: black;
+    position: relative;
+}
