@@ -6,9 +6,12 @@ use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
+ * @Vich\Uploadable()
  */
 class Post
 {
@@ -73,10 +76,29 @@ class Post
      */
     private $imageAlt;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->author = "Alice Pfeiffer";
         $this->createdAt = new \DateTime('now');
+        $this->updatedAt = new \DateTime('now');
         $this->tags = new ArrayCollection();
         $this->isVisible = false;
         $this->likes = new ArrayCollection();
@@ -242,6 +264,44 @@ class Post
     {
         $this->imageAlt = $imageAlt;
 
+        return $this;
+    }
+
+    public function setImageFile(?File $image = null)
+    {
+        $this->imageFile = $image;
+        
+        if ($image) {
+            $this->updatedAt = new \DateTime;
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt()
+    {
+        $this->updatedAt = new \DateTime;
+        
         return $this;
     }
 }

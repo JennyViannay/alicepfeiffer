@@ -9,7 +9,7 @@ searchInput.addEventListener('input', (e) => {
 })
 
 const getTagsAutocomplete = async (query) => {
-    await axios.get('/autocomplete?q=' + query)
+    await axios.get('ajax/autocomplete?q=' + query)
         .then(response => response.data)
         .then(data => {
             results = data

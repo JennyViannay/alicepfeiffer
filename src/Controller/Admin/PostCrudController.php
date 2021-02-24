@@ -9,8 +9,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -43,9 +45,26 @@ class PostCrudController extends AbstractCrudController
             IntegerField::new('readingTime', 'Reading time :')
         ];
 
+        if ($pageName == Crud::PAGE_NEW || $pageName == Crud::PAGE_EDIT) {
+            $imageFile = TextField::new('imageFile')->setFormType(VichImageType::class)->onlyOnForms();
+            $imageAlt = TextField::new('imageAlt', 'Image description improve SEO');
+            array_push($fields, $imageFile);
+            array_push($fields, $imageAlt);
+        }
+
         if ($pageName == Crud::PAGE_INDEX || $pageName == Crud::PAGE_DETAIL) {
+            $image = ImageField::new('image', 'Image File')->setBasePath('/uploads');
+            array_push($fields, $image);
             array_push($fields, DateField::new('createdAt'));
         }
+
+        if ($pageName == Crud::PAGE_DETAIL) {
+            $imageAlt = TextField::new('imageAlt', 'Image description');
+            $tags = CollectionField::new('tags')
+            ->setTemplatePath('admin/tags.html.twig');
+            array_push($fields, $tags);
+            array_push($fields, $imageAlt);
+        } 
 
         array_push($fields, BooleanField::new('isVisible')->onlyOnIndex());
 
