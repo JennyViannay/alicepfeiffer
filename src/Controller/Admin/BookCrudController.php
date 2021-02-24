@@ -13,7 +13,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class BookCrudController extends AbstractCrudController
@@ -21,6 +23,12 @@ class BookCrudController extends AbstractCrudController
     public static function getEntityFqcn(): string
     {
         return Book::class;
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
 
     public function configureFields(string $pageName): iterable
@@ -31,6 +39,7 @@ class BookCrudController extends AbstractCrudController
             DateField::new('publishedAt'),
             TextField::new('link', 'Commercial Link'),
             TextField::new('imageLink', 'Cover link'),
+            TextEditorField::new('description')->setFormType(CKEditorType::class),
             AssociationField::new('tags'),
             BooleanField::new('isVisible')->onlyOnIndex()
         ];

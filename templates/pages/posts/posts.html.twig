@@ -3,12 +3,12 @@
 {% block title %}- Posts{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
+<div class="container mt-5">
     <div class="row">
         <nav>
-            <span class="btn filters-btn"><a href="{{path('app_posts')}}">Tous les posts</a></span>
+            <span class="btn filters-btn all-posts mt-2"><a href="{{path('app_posts')}}">Tous les posts</a></span>
             {% for tag in tags %}
-            <span class="btn filters-btn"><a href="{{ path('app_posts', {'tag' : tag.title }) }}"
+            <span class="btn filters-btn mt-2"><a href="{{ path('app_posts', {'tag' : tag.title }) }}"
                     class="color-framboise">{{tag.title}}</a></span>
             {% endfor %}
         </nav>

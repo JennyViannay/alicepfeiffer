@@ -161,6 +161,10 @@ ul li a {
     text-transform: uppercase;
 }
 
+.all-posts {
+    border: 1px solid black;
+}
+
 /* CONTACT */
 .bg-color-contact {
     background-color: white;
@@ -214,4 +218,34 @@ ul li a {
     font-family: futura-pt, sans-serif, 'Raleway', sans-serif;
     font-weight: 300;
     font-size: 18px;
+}
+
+/* SHOW ARTICLE */ 
+.post-show {
+    background-color: white;
+    margin-left: -13rem;
+    padding: 0rem 2rem;
+    padding-right: 0rem;
+}
+
+/* SHOW POST */
+
+.rs-btn-post {
+    background-color: transparent;
+    color: black;
+    border: 1px solid rgb(201, 200, 200);
+    border-radius: 50%;
+    height: 55px;
+    width: 55px;
+    font-family: futura-pt, sans-serif;
+    font-weight: 200;
+    text-transform: uppercase;
+}
+.btn-check:focus + .btn, .btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .25rem transparent;
+}
+
+.position-rs-post {
+    margin-top: 8px;
 }
