@@ -96,7 +96,8 @@ class AppFixtures extends Fixture
             ->addTag($tags[0])
             ->addTag($tags[2])
             ->addTag($tags[3])
-            ->setImageAlt('Image description');
+            ->setImageAlt('Image description')
+            ->setSlug($this->slugifyService->slugify($press->getMagazine()));;
             $manager->persist($press);
             $magazines[] = $press;
         }
@@ -129,6 +130,7 @@ class AppFixtures extends Fixture
             ->addTag($tags[1])
             ->addTag($tags[4])
             ->addTag($tags[3])
+            ->setDescription($faker->paragraph())
             ->setImageAlt('Image description')
             ->setSlug($this->slugifyService->slugify($book->getTitle()));
             $manager->persist($book);
