@@ -51,6 +51,22 @@ ul li a {
     font-size: 25px;
 }
 
+.transparent-input {
+    border: 0;
+    box-shadow: none;
+}
+
+.form-control:focus{
+    border-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.border-black {
+    border-bottom: 1px solid black;
+    margin-left: 50px;
+}
+
 /* HOME */
 .sticky-col {
     display: block;
@@ -83,6 +99,7 @@ ul li a {
     border-top: 4px solid rgb(0, 0, 0);
     line-height: 64px;
     border-top-width: 10px;
+    text-transform: uppercase;
 }
 .line-black{
     border-top: 1px solid rgb(0, 0, 0);
@@ -90,9 +107,9 @@ ul li a {
 .title-tag {
     color: var(--framboise);
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 300;
     font-family: 'Oswald', sans-serif;
-    font-size: 24px;
+    font-size: 21px;
 }
 .group-title-rectangle {
     padding-left: 50px;
@@ -135,13 +152,17 @@ ul li a {
     border: 1px solid var(--framboise);
     border-radius: 16px 16px;
     font-family: 'Oswald', sans-serif;
-    font-weight: 500;
+    font-weight: 400;
     text-transform: uppercase;
 }
 .filters-btn p{
     font-family: 'Oswald', sans-serif;
-    font-weight: 500;
+    font-weight: 400;
     text-transform: uppercase;
+}
+
+.all-posts {
+    border: 1px solid black;
 }
 
 /* CONTACT */
@@ -157,4 +178,87 @@ ul li a {
     background-color: transparent;
     border: 1px solid var(--framboise);
     color: var(--framboise);
+}
+
+/* show magazine */
+.lang-design {
+    text-transform: uppercase;
+    text-align: right;
+}
+
+.press-title {
+    font-weight: 400;
+    font-size: 25px;
+}
+
+/* ARTICLES */
+.right-text {
+    text-align: right;
+}
+
+.post-pres{
+    background-color: white;
+    margin-top: -7rem;
+    padding: 0rem 2rem;
+    padding-right: 0rem;
+}
+
+.bg-white{
+    background-color: white;
+    position: relative;
+    padding: 15px;
+}
+
+.footer-section-article {
+    border-top: 1px solid var(--framboise);
+    border-top-width: 2px;
+}
+
+.small-text {
+    font-family: futura-pt, sans-serif, 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+/* SHOW ARTICLE */ 
+.post-show {
+    background-color: white;
+    margin-left: -13rem;
+    padding: 0rem 2rem;
+    padding-right: 0rem;
+}
+
+/* SHOW POST */
+
+.rs-btn-post {
+    background-color: transparent;
+    color: black;
+    border: 1px solid rgb(201, 200, 200);
+    border-radius: 50%;
+    height: 55px;
+    width: 55px;
+    font-family: futura-pt, sans-serif;
+    font-weight: 200;
+    text-transform: uppercase;
+}
+.btn-check:focus + .btn, .btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .25rem transparent;
+}
+
+.position-rs-post {
+    margin-top: 8px;
+}
+
+.title-suggestion-post {
+    margin-top: -7rem;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 5rem;
+}
+
+.bg-black {
+    background-color: black;
+    position: relative;
 }

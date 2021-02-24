@@ -66,6 +66,34 @@ class Post
      */
     private $readingTime;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageLink;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageAlt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->author = "Alice Pfeiffer";
@@ -154,29 +182,6 @@ class Post
     }
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string
-     */
-    private $image;
-
-    /**
-     * @Vich\UploadableField(mapping="images", fileNameProperty="image")
-     * @var File
-     */
-    private $imageFile;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $imageAlt;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @var \DateTime
-     */
-    private $updatedAt;
-
-    /**
      * @return Collection|PostLike[]
      */
     public function getLikes(): Collection
@@ -238,6 +243,30 @@ class Post
         return $this;
     }
 
+    public function getImageLink(): ?string
+    {
+        return $this->imageLink;
+    }
+
+    public function setImageLink(string $imageLink): self
+    {
+        $this->imageLink = $imageLink;
+
+        return $this;
+    }
+
+    public function getImageAlt(): ?string
+    {
+        return $this->imageAlt;
+    }
+
+    public function setImageAlt(string $imageAlt): self
+    {
+        $this->imageAlt = $imageAlt;
+
+        return $this;
+    }
+
     public function setImageFile(?File $image = null)
     {
         $this->imageFile = $image;
@@ -272,19 +301,7 @@ class Post
     public function setUpdatedAt()
     {
         $this->updatedAt = new \DateTime;
-
-        return $this;
-    }
-
-    public function getImageAlt(): ?string
-    {
-        return $this->imageAlt;
-    }
-
-    public function setImageAlt(string $imageAlt): self
-    {
-        $this->imageAlt = $imageAlt;
-
+        
         return $this;
     }
 }

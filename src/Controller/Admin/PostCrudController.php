@@ -36,6 +36,8 @@ class PostCrudController extends AbstractCrudController
         $fields = [
             IdField::new('id')->onlyOnIndex(),
             TextField::new('title'),
+            TextField::new('imageLink'),
+            TextField::new('imageAlt'),
             TextEditorField::new('content')->setFormType(CKEditorType::class),
             AssociationField::new('tags'),
             AssociationField::new('likes')->onlyOnIndex(),

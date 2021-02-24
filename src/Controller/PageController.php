@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Entity\Post;
+use App\Entity\Press;
 use App\Form\ContactType;
 use App\Repository\ArticleRepository;
 use App\Repository\BioRepository;
@@ -136,23 +137,6 @@ class PageController extends AbstractController
     }
 
     /**
-     * @Route("/articles/{tag}", name="app_articles", methods={"GET"})
-     */
-    public function articles(string $tag = null): Response
-    {
-        $articles = $this->articleRepository->findAll();
-        $byTag = [];
-        if ($tag) {
-            $tag = $this->tagRepository->findOneBy(["title" => $tag]);
-            $byTag = $tag->getArticles();
-        }
-        return $this->render('pages/articles/articles.html.twig', [
-            'articles' => $byTag ? $byTag : $articles,
-            'tags' => $this->tagRepository->findAll()
-        ]);
-    }
-
-    /**
      * @Route("/books", name="app_books", methods={"GET"})
      */
     public function books(): Response
@@ -163,19 +147,22 @@ class PageController extends AbstractController
     }
 
     /**
-     * @Route("/press/{tag}", name="app_press", methods={"GET"})
+     * @Route("/press", name="app_press", methods={"GET"})
      */
-    public function press(string $tag = null): Response
+    public function press(): Response
     {
-        $presses = $this->pressRepository->findAll();
-        $byTag = [];
-        if ($tag) {
-            $tag = $this->tagRepository->findOneBy(["title" => $tag]);
-            $byTag = $tag->getArticles();
-        }
         return $this->render('pages/press/press.html.twig', [
-            'presses' => $byTag ? $byTag : $presses,
-            'tags' => $this->tagRepository->findAll()
+            'presses' => $this->pressRepository->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("/press/{slug}", name="app_press_show", methods={"GET"})
+     */
+    public function showPress(Press $press): Response
+    {
+        return $this->render('pages/press/show_press.html.twig', [
+            'press' => $press
         ]);
     }
 
@@ -201,7 +188,7 @@ class PageController extends AbstractController
     }
 
     /**
-     * @Route("/legal-mentions", name="app_mentions", methods={"GET"})
+     * @Route("/mentions-legales", name="app_mentions", methods={"GET"})
      */
     public function mentions(): Response
     {
@@ -218,8 +205,10 @@ class PageController extends AbstractController
         $query = $request->query->get('q');
 
         $results = [];
+
         if (null !== $query) {
-            $results = $this->tagRepository->findBy(['title' => $query]);
+            $data = $this->tagRepository->findBy(['title' => $query]);
+            $results = $data ? $data[0] : "";
         }
 
         return $this->render('pages/filter/result_search.html.twig', [

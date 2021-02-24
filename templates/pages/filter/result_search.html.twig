@@ -3,7 +3,87 @@
 {% block title %}- Search{% endblock %}
 
 {% block body %}
-    <div class="container">
-        {{dump(results)}}
+<div class="container">
+    {% if results is not empty %}
+    {% if results.posts is not empty %}
+    <h1>Posts</h1>
+    <p class="line-black"></p>
+    <h4>Retrouvez tous les posts d'Alice</h4>
+    <div class="row">
+        {% for post in results.posts|reverse %}
+        {% if post.isVisible %}
+        <div class="col-lg-4 col-md-6 col-sm-12 d-flex">
+            <div class="my-4">
+                <a href="{{path('app_post', {'slug' : post.slug })}}">
+                    {% if post.imageLink %}
+                    <img src="{{post.imageLink}}" class="card-img-top" alt="{{post.imageAlt}}">
+                    {% endif %}
+                </a>
+                <div class="card-body post-pres">
+                    <div class="bg-white">
+                        <div class="row">
+                            {% for tag in post.tags|slice(0, 2) %}
+                            <div class="col-auto">
+                                <p class="card-title title-tag">{{tag.title}}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <a href="{{path('app_post', {'slug' : post.slug })}}">
+                            <h2 class="card-title mb-4">{{post.title}}</h2>
+                        </a>
+                        <div>
+                            <small class="footer-section-article pt-2 small-text">
+                                {{post.createdAt|date("d M Y")}}
+                                - <i class="far fa-clock"></i> {{post.readingTime}}'
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
     </div>
+    {% endif %}
+    {% if results.articles is not empty %}
+    <h1>Articles</h1>
+    <p class="line-black"></p>
+    <h4>Retrouvez tous les articles d'Alice depuis 2018</h4>
+    <div class="row">
+        {% for article in results.articles|reverse %}
+        {% if article.isVisible %}
+        <div class="col-lg-4 col-md-6 col-sm-12 d-flex">
+            <div class="my-4">
+                <a href="{{article.link}}" target="_blank">
+                    {% if article.image %}
+                    <img src="{{ vich_uploader_asset(article, 'imageFile') }}" class="card-img-top size-img-press"
+                        alt="{{article.imageAlt}}">
+                    {% else %}
+                    <img src="{{article.imageLink}}" class="card-img-top size-img-press" alt="{{article.imageAlt}}">
+                    {% endif %}
+                    <div class="bg-black">
+                        <h3 class="title-suggestion-post">{{article.magazine}} </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            {% for tag in article.tags|slice(0, 2) %}
+                            <div class="col-auto">
+                                <p class="title-tag">{{tag.title}}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <h2 class="press-title">{{article.title}}</h2>
+                        <p class="text-muted lang-design">{{article.lang}}</span></p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% else %}
+    <p>Aucun résultat</p>
+    {% endif %}
+</div>
 {% endblock %}

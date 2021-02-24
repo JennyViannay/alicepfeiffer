@@ -3,12 +3,13 @@
 {% block title %}- Posts{% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="container mt-5">
     <div class="row">
         <nav>
-            <span class="badge bg-warning"><a href="{{path('app_posts')}}" class="text-dark">#allPosts</a></span>
+            <span class="btn filters-btn all-posts mt-2"><a href="{{path('app_posts')}}">Tous les posts</a></span>
             {% for tag in tags %}
-            <span class="badge bg-warning"><a href="{{ path('app_posts', {'tag' : tag.title }) }}" class="text-white">#{{tag.title}}</a></span>
+            <span class="btn filters-btn mt-2"><a href="{{ path('app_posts', {'tag' : tag.title }) }}"
+                    class="color-framboise">{{tag.title}}</a></span>
             {% endfor %}
         </nav>
     </div>
@@ -16,29 +17,30 @@
         {% if posts is not empty %}
         {% for post in posts|reverse %}
         {% if post.isVisible %}
-        <div class="col-lg-4 col-md-6 col-sm-12">
-            <div class="card my-4">
-                <div class="card-body">
-                    <h3 class="card-title"><a href="{{path('app_post', {'slug' : post.slug })}}">{{post.title}}</a></h3>
-                    <p>Likes = {{post.likes|length}}</p>
-                    <p class="card-text">
-                        {% set intro = post.content[:50] ~ '...' %}
-                        <p>{{intro|raw}}</p>
-                        <small>
-                            <p>{{post.createdAt|date('d-m-Y')}} - writed by {{post.author}}</p>
-                            {% for tag in post.tags %}
-                            <span class="badge bg-secondary"><a href="{{ path('app_posts', {'tag' : tag.title }) }}" class="text-white">#{{tag.title}}</a></span>
+        <div class="col-lg-4 col-md-6 col-sm-12 d-flex">
+            <div class="my-4">
+                <a href="{{path('app_post', {'slug' : post.slug })}}">
+                    {% if post.imageLink %}
+                    <img src="{{post.imageLink}}" class="card-img-top" alt="{{post.imageAlt}}">
+                    {% endif %}
+                </a>
+                <div class="card-body post-pres">
+                    <div class="bg-white">
+                        <div class="row">
+                            {% for tag in post.tags|slice(0, 2) %}
+                            <div class="col-auto">
+                                <p class="card-title title-tag">{{tag.title}}</p>
+                            </div>
                             {% endfor %}
-                        </small>
-                    </p>
-                    <div class="row">
-                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"
-                            data-size="small">
-                            <a target="_blank"
-                                href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
-                                class="fb-xfbml-parse-ignore">
-                                Partager
-                            </a>
+                        </div>
+                        <a href="{{path('app_post', {'slug' : post.slug })}}">
+                            <h2 class="card-title mb-4">{{post.title}}</h2>
+                        </a>
+                        <div>
+                            <small class="footer-section-article pt-2 small-text">
+                                {{post.createdAt|date("d M Y")}}
+                                - <i class="far fa-clock"></i> {{post.readingTime}}'
+                            </small>
                         </div>
                     </div>
                 </div>
